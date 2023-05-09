@@ -1,0 +1,151 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+*,
+*:focus,
+*:hover {
+  outline: none;
+  /* Remove black borders from inputs etc. */
+}
+
+:root {
+  --gray-light: #f8f8f8;
+  --gray-medium: #e2dfdf;
+  --gray-dark: #7f8b94;
+  --gray-black: #2e2e48;
+
+  --text-light: #727275;
+  --text-dark: #393945;
+  --text-black: #292e45;
+
+  --green: #588f61;
+  --green-light: #41a251;
+  --pink: #fd6580;
+  --red: #ff0000;
+  --blue-light: #e4eaef;
+  --white: #ffffff;
+  --black: #000000;
+  --orange: #fd7e14;
+
+  /* Spacing, heights and widths */
+  --navbar-height: 13rem;
+
+  --spacing-xxs: 1%;
+  --spacing-xs: 2.05%;
+  --spacing-sm: 3.125%;
+  --spacing-md: 4.15%;
+  --spacing-lg: 5.25%;
+  --spacing-xl: 8.25%;
+  --spacing-xxl: 11.45%;
+
+  /* Shadows */
+  --shadow-light: 0px 10px 24px #0000002e;
+  --shadow-medium: 0px 8px 20px #00000029;
+
+  /* General z-indexes */
+  --z-index-base: 0;
+  --z-index-above: 1;
+  --z-index-below: -1;
+  --z-index-auto: auto;
+
+  /* Specific z-indexes */
+  --z-index-popover: 1;
+  --z-index-tooltip: 2;
+  --z-index-navbar: 3;
+  --z-index-backdrop: 4;
+  --z-index-modal: 5;
+
+  /* Typorgraphy */
+  --montserrat: "Montserrat", sans-serif;
+  --PT-sans: "PT Sans", sans-serif;
+  --lato: "Lato", sans-serif;
+
+  /* Fontsizes */
+  /* mobile */
+  --font-size-mobile-x-small: 2rem;
+  --font-size-mobile-small: 2.8rem;
+  --font-size-mobile-medium: 3.5rem;
+  --font-size-mobile-large: 4.25rem;
+  --font-size-mobile-x-large: 5.25rem;
+  /* standard */
+  --font-size-small: 3rem;
+  --font-size-medium: 5rem;
+  --font-size-big: 6rem;
+
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--white) !important;
+  font-family: var(--lato) !important;
+  color: var(--text-black) !important;
+  line-height: 1.5 !important;
+
+  /* Add padding behind navbar */
+  padding-top: 9rem;
+  overflow-x: hidden;
+overflow-y: scroll;
+}
+
+main {
+  /* min-height for each will show navbar and main content */
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--montserrat);
+  color: var(--text-dark);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media only screen and (max-width: 1680px) {
+  html {
+    /* Shrink REM by 5% */
+    font-size: 57.5%;
+  }
+}
+
+@media only screen and (max-width: 1392px) {
+  html {
+    /* Shrink REM by 2.5% */
+    font-size: 55%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  html {
+    /* Shrink REM by 2.5% */
+    font-size: 52.5%;
+  }
+}
+
+@media only screen and (max-width: 1056px) {
+  html {
+    /* Shrink REM by 2.5% */
+    font-size: 50%;
+  }
+}
+
+/* remove top padding when switching to hamburger menu */
+/* @media only screen and (max-width: 980px) {
+  body {
+    padding-top: 0;
+  }
+} */
