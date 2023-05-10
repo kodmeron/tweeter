@@ -1,13 +1,18 @@
-# Table of contents
+## Git branch name and commmit structure
 
-1. [git branch and commit structure](#branch name and commit messages)
-2. [Getting started with Create React App](#Getting started)
+### This how we name the branches:
 
-# Git branch name and commmit structure
-
-This how we name the branches:
 "Epicname_taskname"
-For example landingpage_Herosection
+</br>
+For example:</br>
+landingpage_Herosection
+
+### This how to structure the commit message
+
+"taskname: what you changed, added or deleted"
+</br>
+For example: </br>
+Herosection:added become member form
 
 # Getting Started with Create React App
 
