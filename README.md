@@ -1,3 +1,14 @@
+# Table of contents
+
+1. [git branch and commit structure](#branch name and commit messages)
+2. [Getting started with Create React App](#Getting started)
+
+# Git branch name and commmit structure
+
+This how we name the branches:
+"Epicname_taskname"
+For example landingpage_Herosection
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
