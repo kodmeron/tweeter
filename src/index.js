@@ -7,6 +7,8 @@ import { AuthContextProvider } from './auth/AuthContextProvider';
 
 import Signup from './auth/Signup';
 import Signin from './auth/Signin';
+import DataImport from './firestore/DataImport';
+import DataExport from './firestore/DataExport';
 
 //Components
 import Navbar from './components/Navbar';
@@ -21,6 +23,8 @@ root.render(
           <Route path="/" element={<App />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/data-import" element={<DataImport />} />
+          <Route path="/data-export" element={<DataExport />} />
         </Routes>
       </AuthContextProvider>
     </Router>
