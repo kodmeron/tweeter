@@ -15,24 +15,6 @@
 }
 
 :root {
-  --gray-light: #f8f8f8;
-  --gray-medium: #e2dfdf;
-  --gray-dark: #7f8b94;
-  --gray-black: #2e2e48;
-
-  --text-light: #727275;
-  --text-dark: #393945;
-  --text-black: #292e45;
-
-  --green: #588f61;
-  --green-light: #41a251;
-  --pink: #fd6580;
-  --red: #ff0000;
-  --blue-light: #e4eaef;
-  --white: #ffffff;
-  --black: #000000;
-  --orange: #fd7e14;
-
   /* Spacing, heights and widths */
   --navbar-height: 13rem;
 

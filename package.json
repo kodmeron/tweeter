@@ -13,6 +13,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
+<<<<<<< HEAD
+=======
+    "react-firebaseui": "^6.0.0",
+    "react-icons": "^4.8.0",
+>>>>>>> 43b340e (colour fix in idex.css)
     "react-router-dom": "^6.11.1",
     "react-scripts": "^5.0.1",
     "styled-components": "^6.0.0-rc.1",
