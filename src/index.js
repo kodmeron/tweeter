@@ -7,11 +7,18 @@ import { AuthContextProvider } from './auth/AuthContextProvider';
 
 import Signup from './auth/Signup';
 import Signin from './auth/Signin';
+<<<<<<< HEAD
 import Profile from './pages/Profile/Profile';
 
+=======
+//Pages
+import Home from "./pages/home/Home";
+>>>>>>> e3d5499 (landingpage start)
 //Components
 import Navbar from './components/Navbar';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 
 root.render(
   <React.StrictMode>
@@ -19,7 +26,7 @@ root.render(
       <AuthContextProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/profile" element={<Profile />} />

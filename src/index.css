@@ -75,8 +75,8 @@ body {
 
   /* Add padding behind navbar */
   padding-top: 13rem;
-  overflow-x: hidden;
-overflow-y: scroll;
+  overflow-x: hidden; 
+  overflow-y: scroll;
 }
 
 main {
