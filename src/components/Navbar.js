@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { RxHamburgerMenu } from 'react-icons/rx';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function Navbar() {
           alt='Tweeter logo'
           src='/images/logo/tweeter.png'
           onClick={() => navigate("/")}
+          style={{ cursor: 'pointer' }}
         />
         <div className='menu'>
           <div className='menu-items'>
@@ -38,7 +40,7 @@ function Navbar() {
                   className='categories-btn'
                   onClick={handleDropdownToggle}
                 >
-                  Categories
+                  <RxHamburgerMenu /> Categories
                 </button>
                 {dropdownVisible && (
                   <div className="dropdown-content">
