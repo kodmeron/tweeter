@@ -3,10 +3,6 @@ import styled from "styled-components";
 
 // Här skriver man vanlig scss/css
 // Den här är local scope och används bara där den här importeras och där komponenten används
-export const ExampleSection = styled.section`
- font-size: 30px;
- text-align:center;
- .examle-div {
- color: black;
- }
+export const ProfileStyles = styled.section`
+  
 `
