@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserAuth } from "./AuthContextProvider";
 import { auth } from '../firebase'
 
 const Signin = () => {
-  const { user, signIn } = UserAuth();
+  const { signIn } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

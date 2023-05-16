@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Navbar() {
@@ -23,9 +23,9 @@ function Navbar() {
                   Birdwatching
                 </button>
                 <div class="dropdown-content">
-                  <a href="#">Link 1</a>
-                  <a href="#">Link 2</a>
-                  <a href="#">Link 3</a>
+                  <a href="/">Link 1</a>
+                  <a href="/">Link 2</a>
+                  <a href="/">Link 3</a>
                 </div>
               </NavLink>
 
