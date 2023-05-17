@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
+=======
+import React from 'react'
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
+>>>>>>> parent of a5c2cd7 (rm: some vulnerabilities, npm issue & warnings from current code)
 import styled from "styled-components";
 import { RxHamburgerMenu } from 'react-icons/rx';
 
@@ -29,9 +34,26 @@ function Navbar() {
           <div className='menu-items'>
             <div className='menu-items-inner'>
 
+<<<<<<< HEAD
               <NavLink className="home">
                 <button className="home-btn">
                   Home
+=======
+              <NavLink class="dropdown">
+                <button className='birdwatching-btn'>
+                  Birdwatching
+                </button>
+                <div class="dropdown-content">
+                  <a href="#">Link 1</a>
+                  <a href="#">Link 2</a>
+                  <a href="#">Link 3</a>
+                </div>
+              </NavLink>
+
+              <NavLink className="gallery">
+                <button className="gallery-btn">
+                  Gallery
+>>>>>>> parent of a5c2cd7 (rm: some vulnerabilities, npm issue & warnings from current code)
                 </button>
               </NavLink>
 
