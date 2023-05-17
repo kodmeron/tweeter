@@ -7,12 +7,14 @@ import { AuthContextProvider } from './auth/AuthContextProvider';
 
 import Signup from './auth/Signup';
 import Signin from './auth/Signin';
-import Profile from './pages/Profile/Profile';
-import Home from './pages/home/Home'
-
+//Pages
+import Home from "./pages/home/Home";
+import Profile from "./pages/Profile/Profile"
 //Components
 import Navbar from './components/Navbar';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 
 root.render(
   <React.StrictMode>
