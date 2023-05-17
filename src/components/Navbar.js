@@ -1,9 +1,19 @@
-import React from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState } from 'react'
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { RxHamburgerMenu } from 'react-icons/rx';
 
 function Navbar() {
   const navigate = useNavigate();
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleDropdownClose = () => {
+    setDropdownVisible(false);
+  };
 
   return (
     <>
@@ -13,31 +23,44 @@ function Navbar() {
           alt='Tweeter logo'
           src='/images/logo/tweeter.png'
           onClick={() => navigate("/")}
+          style={{ cursor: 'pointer' }}
         />
         <div className='menu'>
           <div className='menu-items'>
             <div className='menu-items-inner'>
 
-              <NavLink class="dropdown">
-                <button className='birdwatching-btn'>
-                  Birdwatching
-                </button>
-                <div class="dropdown-content">
-                  <a href="/">Link 1</a>
-                  <a href="/">Link 2</a>
-                  <a href="/">Link 3</a>
-                </div>
-              </NavLink>
-
-              <NavLink className="gallery">
-                <button className="gallery-btn">
-                  Gallery
+              <NavLink className="home">
+                <button className="home-btn">
+                  Home
                 </button>
               </NavLink>
 
-              <NavLink className="camera">
-                <button className="camera-btn">
-                  Camera gear
+              <div className="dropdown">
+                <button
+                  className='categories-btn'
+                  onClick={handleDropdownToggle}
+                >
+                  <RxHamburgerMenu /> Categories
+                </button>
+                {dropdownVisible && (
+                  <div className="dropdown-content">
+                    <a href="#">Bird idenfication</a>
+                    <a href="#">Birdwatching Tips</a>
+                    <a href="#">Photography</a>
+                    <a href="#">Birdwatching Locations</a>
+                    <a href="#">Conservation and Preservation</a>
+                    <a href="#">Bird Behavior and Biology</a>
+                    <a href="#">Binoculars and Gear</a>
+                    <a href="#">Birding Events and Meetups</a>
+                    <a href="#">Birdwatching Stories and Experiences</a>
+                    <a href="#">Birdwatching Resources</a>
+                  </div>
+                )}
+              </div>
+
+              <NavLink className="about">
+                <button className="about-btn">
+                  About us
                 </button>
               </NavLink>
 
@@ -62,7 +85,7 @@ const NavbarComponent = styled.header`
  padding: 0;
   border-top: 10px solid #F97B22;
   transition: background-color 0.15s ease, box-shadow 0.15s ease;
-  background-color: #FFF8D6;
+ 
 
   .navbar-logo {
     grid-row: 1;
@@ -89,7 +112,7 @@ const NavbarComponent = styled.header`
  grid-gap: 20px;
 }
 
-.birdwatching-btn, .gallery-btn, .camera-btn {
+.home-btn, .categories-btn, .about-btn {
   background-color: #A4D0A4;
   color: white;
   padding: 0;

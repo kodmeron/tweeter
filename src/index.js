@@ -8,6 +8,7 @@ import { AuthContextProvider } from './auth/AuthContextProvider';
 import Signup from './auth/Signup';
 import Signin from './auth/Signin';
 import Profile from './pages/Profile/Profile';
+import Home from './pages/home/Home'
 
 //Components
 import Navbar from './components/Navbar';
@@ -20,6 +21,7 @@ root.render(
         <Navbar />
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/profile" element={<Profile />} />
