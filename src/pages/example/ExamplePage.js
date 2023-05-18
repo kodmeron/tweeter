@@ -5,6 +5,9 @@ const Example = () => {
   return (
     <ExampleSection>
       Example
+      <div className="example-div">
+        Alibababababbba
+      </div>
     </ExampleSection>
   )
 }

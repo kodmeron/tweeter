@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { UserAuth } from "./AuthContextProvider";
 
 const Signup = () => {
-  const { user, createUser } = UserAuth();
+  const { createUser } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
