@@ -17,8 +17,11 @@ import Profile from "./pages/Profile/Profile"
 
 //Components
 import Navbar from './components/Navbar';
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import CreatePost from "./components/CreatePost";
+import Category from "./components/Category";
+import Post from "./components/Post";
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
 root.render(
@@ -34,6 +37,9 @@ root.render(
           <Route path="/data-import" element={<DataImport />} />
           <Route path="/data-export" element={<DataExport />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/post/:postId" element={<Post />} />
         </Routes>
       </AuthContextProvider>
     </Router>
