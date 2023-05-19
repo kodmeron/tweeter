@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function Home() {
@@ -97,6 +97,8 @@ function Home() {
     ],
   };
 
+  const [open, isOpen] = useState(false);
+
   const posts = mockData.posts;
 
   return (
@@ -134,7 +136,7 @@ const HomeComponent = styled.header`
   .outer {
     grid-column: 2;
     grid-row: 2;
-    background-color: #e6fffd;
+    background-color: #b799ff;
   }
 
   .mid {
@@ -152,7 +154,7 @@ const HomeComponent = styled.header`
   }
 
   .section-bar {
-    background-color: #aee2ff;
+    background-color: #acbcff;
     display: flex;
     flex-direction: column;
   }
@@ -160,13 +162,13 @@ const HomeComponent = styled.header`
   a {
     font-size: 2rem;
     text-decoration: none;
-    margin-left: 10px;
+    color: white;
   }
 
   .content {
-    margin: 1rem;
     color: black;
     font-size: 1.5rem;
+    background-color: #aee2ff;
   }
 `;
 
