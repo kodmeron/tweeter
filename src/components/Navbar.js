@@ -78,7 +78,7 @@ const NavbarComponent = styled.header`
   z-index: var(--z-index-navbar);
   display: grid;
   grid-template-columns: 20px auto 20px;
-  grid-template-rows: 9rem 3rem;
+  grid-template-rows: 9rem 4rem;
   align-items: center;
   width: 100vw;
   height: 13rem;
