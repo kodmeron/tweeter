@@ -1,154 +1,145 @@
-import React, { useState } from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { RxHamburgerMenu } from 'react-icons/rx';
+import React, { useState } from 'react';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { slide as Menu } from 'react-burger-menu';
 
 function Navbar() {
   const navigate = useNavigate();
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-
-  const handleDropdownToggle = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
-
-  // const handleDropdownClose = () => {
-  //   setDropdownVisible(false);
-  // };
 
   return (
     <>
-      <NavbarComponent>
-        <img
-          className='navbar-logo'
-          alt='Tweeter logo'
-          src='/images/logo/tweeter.png'
-          onClick={() => navigate("/")}
-          style={{ cursor: 'pointer' }}
-        />
-        <div className='menu'>
-          <div className='menu-items'>
-            <div className='menu-items-inner'>
+      <OuterNav>
+        <NavbarContainer>
+          <NavbarComponent>
+            <img
+              className='navbar-logo'
+              alt='Tweeter logo'
+              src='/images/logo/tweeter-bird-small.png'
+              onClick={() => navigate("/")}
+              style={{ cursor: 'pointer' }}
+            />
 
-              <NavLink className="home">
-                <button className="home-btn">
-                  Home
-                </button>
-              </NavLink>
-
-              <div className="dropdown">
-                <button
-                  className='categories-btn'
-                  onClick={handleDropdownToggle}
-                >
-                  <RxHamburgerMenu /> Categories
-                </button>
-                {dropdownVisible && (
-                  <div className="dropdown-content">
-                    <a href="#">Bird idenfication</a>
-                    <a href="#">Birdwatching Tips</a>
-                    <a href="#">Photography</a>
-                    <a href="#">Birdwatching Locations</a>
-                    <a href="#">Conservation and Preservation</a>
-                    <a href="#">Bird Behavior and Biology</a>
-                    <a href="#">Binoculars and Gear</a>
-                    <a href="#">Birding Events and Meetups</a>
-                    <a href="#">Birdwatching Stories and Experiences</a>
-                    <a href="#">Birdwatching Resources</a>
-                  </div>
-                )}
-              </div>
-
-              <NavLink className="about">
-                <button className="about-btn">
-                  About us
-                </button>
-              </NavLink>
-
-            </div>
-          </div>
-        </div>
-      </NavbarComponent>
+            <Menu right className="menu">
+              <Link to="/bird-identification">Bird idenfication</Link>
+              <Link to="/tips">Birdwatching Tips</Link>
+              <Link to="/photography">Photography</Link>
+              <Link to="/locations">Birdwatching Locations</Link>
+              <Link to="/conservation-and-preservation">Conservation and Preservation</Link>
+              <Link to="/behavior-and-biology">Bird Behavior and Biology</Link>
+              <Link to="/binoculars-and-gear">Binoculars and Gear</Link>
+              <Link to="/events-and-meetups">Birding Events and Meetups</Link>
+              <Link to="/stories-and-experiences">Birdwatching Stories and Experiences</Link>
+              <Link to="/recources">Birdwatching Resources</Link>
+            </Menu>
+          </NavbarComponent>
+        </NavbarContainer>
+      </OuterNav>
     </>
-  )
+  );
 }
+
+const OuterNav = styled.header`
+  display: grid;
+  grid-template-rows: auto;
+`;
+
+const NavbarContainer = styled.div`
+  margin: 2rem;
+`;
 
 const NavbarComponent = styled.header`
   position: fixed;
   top: 0;
   z-index: var(--z-index-navbar);
-  display: grid;
-  grid-template-columns: 20px auto 20px;
-  grid-template-rows: 9rem 3rem;
+  display: flex;
+  height: 7rem;
+  column-gap: 20px;
   align-items: center;
-  width: 100vw;
-  height: 13rem;
- padding: 0;
-  border-top: 10px solid #F97B22;
-  transition: background-color 0.15s ease, box-shadow 0.15s ease;
- 
+  justify-content: space-between;
+  width: calc(100vw - 4rem); /* Subtract the margin from the width */
+  border-bottom: 1px solid #acbcff;
+  background-color: #fff;
 
   .navbar-logo {
     grid-row: 1;
-    grid-column: 2 / span 2;
+    grid-column: 2;
+    justify-self: center;
+    height: 50px;
   }
 
-.menu {
-  background-color: #A4D0A4;
-  grid-row: 2;
-  grid-column: 1 / span 3;  
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: sticky;
+  width: 36px;
+  height: 25px;
+  left: 36px;
+  top: 36px;
 }
 
-.menu-items {
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: 30px auto;
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
 }
 
-.menu-items-inner {
- grid-column: 2;
- display: grid;
- grid-template-columns: auto auto auto;
- justify-content: start;
- grid-gap: 20px;
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: #B799FF;
 }
 
-.home-btn, .categories-btn, .about-btn {
-  background-color: #A4D0A4;
-  color: white;
-  padding: 0;
-  font-size: 16px;
-  border: none;
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #B799FF;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  top: 0;
+  height: 100%;
 }
 
 
+/* General sidebar styles */
+.bm-menu {
+  background: #B799FF;
+  padding: 1.5em;
+  font-size: 1.15em;
+}
 
-.dropdown {
-  position: relative;
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #ACBCFF;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
   display: inline-block;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+/* Styling of overlay */
+.bm-overlay {
+  background: #ACBCFF;
 }
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
- 
 `
+const CustomMenu = styled(Menu)`
+  top: 0; /* Move the menu to the top */
+`;
 
 export default Navbar
