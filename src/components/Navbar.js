@@ -20,16 +20,16 @@ function Navbar() {
             />
 
             <Menu right className="menu">
-              <Link to="/bird-identification">Bird idenfication</Link>
-              <Link to="/tips">Birdwatching Tips</Link>
-              <Link to="/photography">Photography</Link>
-              <Link to="/locations">Birdwatching Locations</Link>
-              <Link to="/conservation-and-preservation">Conservation and Preservation</Link>
-              <Link to="/behavior-and-biology">Bird Behavior and Biology</Link>
-              <Link to="/binoculars-and-gear">Binoculars and Gear</Link>
-              <Link to="/events-and-meetups">Birding Events and Meetups</Link>
-              <Link to="/stories-and-experiences">Birdwatching Stories and Experiences</Link>
-              <Link to="/recources">Birdwatching Resources</Link>
+              <Link className='navText' to="/bird-identification">Bird idenfication</Link>
+              <Link className='navText' to="/tips">Birdwatching Tips</Link>
+              <Link className='navText' to="/photography">Photography</Link>
+              <Link className='navText' to="/locations">Birdwatching Locations</Link>
+              <Link className='navText' to="/conservation-and-preservation">Conservation and Preservation</Link>
+              <Link className='navText' to="/behavior-and-biology">Bird Behavior and Biology</Link>
+              <Link className='navText' to="/binoculars-and-gear">Binoculars and Gear</Link>
+              <Link className='navText' to="/events-and-meetups">Birding Events and Meetups</Link>
+              <Link className='navText' to="/stories-and-experiences">Birdwatching Stories and Experiences</Link>
+              <Link className='navText' to="/recources">Birdwatching Resources</Link>
             </Menu>
           </NavbarComponent>
         </NavbarContainer>
@@ -67,6 +67,15 @@ const NavbarComponent = styled.header`
     height: 50px;
   }
 
+  .menu {
+    font-size: 2rem;
+  }
+
+  .navText {
+    text-decoration: none;
+    color: #000;
+  }
+
 
 /* Position and sizing of burger button */
 .bm-burger-button {
@@ -95,7 +104,8 @@ const NavbarComponent = styled.header`
 
 /* Color/shape of close button cross */
 .bm-cross {
-  background: #B799FF;
+  background: #E6FFFD;
+}
 }
 
 /*
@@ -111,7 +121,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* General sidebar styles */
 .bm-menu {
-  background: #B799FF;
+  background: #ACBCFF;
   padding: 1.5em;
   font-size: 1.15em;
 }
