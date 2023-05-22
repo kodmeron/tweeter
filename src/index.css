@@ -16,7 +16,7 @@
 
 :root {
   /* Spacing, heights and widths */
-  --navbar-height: 13rem;
+  --navbar-height: 7rem;
 
   --spacing-xxs: 1%;
   --spacing-xs: 2.05%;
@@ -74,9 +74,18 @@ body {
   line-height: 1.5 !important;
 
   /* Add padding behind navbar */
-  padding-top: 13rem;
+  padding-top: 7rem;
   overflow-x: hidden; 
   overflow-y: scroll;
+}
+
+@media screen and (min-width: 990px) {  
+  
+  body {
+  padding-top: 11rem;
+
+}
+
 }
 
 main {

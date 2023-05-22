@@ -1,154 +1,238 @@
-import React, { useState } from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { RxHamburgerMenu } from 'react-icons/rx';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { slide as Menu } from 'react-burger-menu';
+import { CgProfile } from "react-icons/cg";
+import { FaCaretDown } from "react-icons/fa";
 
 function Navbar() {
   const navigate = useNavigate();
-  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [smallMenu, setSmallMenu] = useState(false);
+  const [bigMenu, setBigMenu] = useState(false);
 
-  const handleDropdownToggle = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      setSmallMenu(screenWidth < 990);
+    };
 
-  // const handleDropdownClose = () => {
-  //   setDropdownVisible(false);
-  // };
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      setBigMenu(screenWidth > 990);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <>
-      <NavbarComponent>
-        <img
-          className='navbar-logo'
-          alt='Tweeter logo'
-          src='/images/logo/tweeter.png'
-          onClick={() => navigate("/")}
-          style={{ cursor: 'pointer' }}
-        />
-        <div className='menu'>
-          <div className='menu-items'>
-            <div className='menu-items-inner'>
+      <OuterNav>
+        <NavbarContainer>
+          <NavbarComponent>
+            {/* {bigMenu && (
+              <div className='big-menu-outer'>
+                <img
+                  className='navbar-logo'
+                  alt='Tweeter logo'
+                  src='/images/logo/tweeter-small.png'
+                  onClick={() => navigate("/")}
+                  style={{ cursor: 'pointer' }}
+                />
 
-              <NavLink className="home">
-                <button className="home-btn">
-                  Home
-                </button>
-              </NavLink>
-
-              <div className="dropdown">
-                <button
-                  className='categories-btn'
-                  onClick={handleDropdownToggle}
-                >
-                  <RxHamburgerMenu /> Categories
-                </button>
-                {dropdownVisible && (
-                  <div className="dropdown-content">
-                    <a href="#">Bird idenfication</a>
-                    <a href="#">Birdwatching Tips</a>
-                    <a href="#">Photography</a>
-                    <a href="#">Birdwatching Locations</a>
-                    <a href="#">Conservation and Preservation</a>
-                    <a href="#">Bird Behavior and Biology</a>
-                    <a href="#">Binoculars and Gear</a>
-                    <a href="#">Birding Events and Meetups</a>
-                    <a href="#">Birdwatching Stories and Experiences</a>
-                    <a href="#">Birdwatching Resources</a>
+                <div className='menu-items'>
+                  <div class="dropdown">
+                    <button class="dropbtn">Categories
+                      <FaCaretDown />
+                    </button>
+                    <div class="dropdown-content">
+                      <Link className='navText' to="/bird-identification">Bird Idenfication</Link>
+                      <Link className='navText' to="/tips">Birdwatching Tips</Link>
+                      <Link className='navText' to="/photography">Photography</Link>
+                      <Link className='navText' to="/locations">Birdwatching Locations</Link>
+                      <Link className='navText' to="/conservation-and-preservation">Conservation and Preservation</Link>
+                      <Link className='navText' to="/behavior-and-biology">Behavior and Biology</Link>
+                      <Link className='navText' to="/binoculars-and-gear">Binoculars and Gear</Link>
+                      <Link className='navText' to="/events-and-meetups">Birding Events and Meetups</Link>
+                      <Link className='navText' to="/stories-and-experiences">Birdwatching Stories and Experiences</Link>
+                      <Link className='navText' to="/recources">Birdwatching Resources</Link>
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
+            )}
 
-              <NavLink className="about">
-                <button className="about-btn">
-                  About us
-                </button>
-              </NavLink>
 
-            </div>
-          </div>
-        </div>
-      </NavbarComponent>
+            {smallMenu && ( */}
+            <>
+              <img
+                className='navbar-logo'
+                alt='Tweeter logo'
+                src='/images/logo/tweeter-bird-small.png'
+                onClick={() => navigate("/")}
+                style={{ cursor: 'pointer' }}
+              />
+
+              <div className='menu-outer'>
+                <CgProfile className='profile-icon' />
+                <Menu right className="menu">
+                  <Link className='navText' to="/bird-identification">Bird Idenfication</Link>
+                  <Link className='navText' to="/tips">Birdwatching Tips</Link>
+                  <Link className='navText' to="/photography">Photography</Link>
+                  <Link className='navText' to="/locations">Birdwatching Locations</Link>
+                  <Link className='navText' to="/conservation-and-preservation">Conservation/Preservation</Link>
+                  <Link className='navText' to="/behavior-and-biology">Behavior and Biology</Link>
+                  <Link className='navText' to="/binoculars-and-gear">Binoculars & Gear</Link>
+                  <Link className='navText' to="/events-and-meetups">Events & Meetups</Link>
+                  <Link className='navText' to="/stories-and-experiences">Stories & Experiences</Link>
+                  <Link className='navText' to="/recources">Birdwatching Resources</Link>
+                </Menu>
+
+              </div>
+            </>
+            {/* )} */}
+          </NavbarComponent>
+        </NavbarContainer>
+      </OuterNav>
     </>
-  )
+  );
 }
+
+
+const OuterNav = styled.header`
+  display: grid;
+  grid-template-rows: auto;
+`;
+
+const NavbarContainer = styled.div`
+  margin: 0 2rem 0 2rem;
+`;
 
 const NavbarComponent = styled.header`
   position: fixed;
   top: 0;
   z-index: var(--z-index-navbar);
-  display: grid;
-  grid-template-columns: 20px auto 20px;
-  grid-template-rows: 9rem 3rem;
+  display: flex;
+  height: 7rem;
+  column-gap: 20px;
   align-items: center;
-  width: 100vw;
-  height: 13rem;
- padding: 0;
-  border-top: 10px solid #F97B22;
-  transition: background-color 0.15s ease, box-shadow 0.15s ease;
- 
+  justify-content: space-between;
+  width: calc(100vw - 4rem); /* Subtract the margin from the width */
+  border-bottom: 1px solid #acbcff;
+  background-color: #fff;
+
+
 
   .navbar-logo {
     grid-row: 1;
-    grid-column: 2 / span 2;
+    grid-column: 2;
+    justify-self: center;
+    height: 50px;
   }
 
-.menu {
-  background-color: #A4D0A4;
-  grid-row: 2;
-  grid-column: 1 / span 3;  
+  .menu-outer {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .profile-icon {
+    font-size: 3.2rem;
+
+    &:hover {
+      color: #B799FF;
+    }
+  }
+
+  .menu {
+    font-size: 2rem;
+  }
+
+  .navText {
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+  }
+
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: sticky;
+  width: 36px;
+  height: 25px;
+  left: 36px;
+  top: 36px;
 }
 
-.menu-items {
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: 30px auto;
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
 }
 
-.menu-items-inner {
- grid-column: 2;
- display: grid;
- grid-template-columns: auto auto auto;
- justify-content: start;
- grid-gap: 20px;
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: #B799FF;
 }
 
-.home-btn, .categories-btn, .about-btn {
-  background-color: #A4D0A4;
-  color: white;
-  padding: 0;
-  font-size: 16px;
-  border: none;
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #E6FFFD;
+}
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  top: 0;
+  height: 100%;
 }
 
 
+/* General sidebar styles */
+.bm-menu {
+  background: #ACBCFF;
+  padding: 1.5em;
+  font-size: 1.15em;
+}
 
-.dropdown {
-  position: relative;
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #ACBCFF;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
   display: inline-block;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+/* Styling of overlay */
+.bm-overlay {
+  background: #ACBCFF;
 }
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
- 
 `
 
 export default Navbar
