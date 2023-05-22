@@ -1,36 +1,105 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { slide as Menu } from 'react-burger-menu';
+import { CgProfile } from "react-icons/cg";
+import { FaCaretDown } from "react-icons/fa";
 
 function Navbar() {
   const navigate = useNavigate();
+  const [smallMenu, setSmallMenu] = useState(false);
+  const [bigMenu, setBigMenu] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      setSmallMenu(screenWidth < 990);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      setBigMenu(screenWidth > 990);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <>
       <OuterNav>
         <NavbarContainer>
           <NavbarComponent>
-            <img
-              className='navbar-logo'
-              alt='Tweeter logo'
-              src='/images/logo/tweeter-bird-small.png'
-              onClick={() => navigate("/")}
-              style={{ cursor: 'pointer' }}
-            />
+            {/* {bigMenu && (
+              <div className='big-menu-outer'>
+                <img
+                  className='navbar-logo'
+                  alt='Tweeter logo'
+                  src='/images/logo/tweeter-small.png'
+                  onClick={() => navigate("/")}
+                  style={{ cursor: 'pointer' }}
+                />
 
-            <Menu right className="menu">
-              <Link className='navText' to="/bird-identification">Bird idenfication</Link>
-              <Link className='navText' to="/tips">Birdwatching Tips</Link>
-              <Link className='navText' to="/photography">Photography</Link>
-              <Link className='navText' to="/locations">Birdwatching Locations</Link>
-              <Link className='navText' to="/conservation-and-preservation">Conservation and Preservation</Link>
-              <Link className='navText' to="/behavior-and-biology">Bird Behavior and Biology</Link>
-              <Link className='navText' to="/binoculars-and-gear">Binoculars and Gear</Link>
-              <Link className='navText' to="/events-and-meetups">Birding Events and Meetups</Link>
-              <Link className='navText' to="/stories-and-experiences">Birdwatching Stories and Experiences</Link>
-              <Link className='navText' to="/recources">Birdwatching Resources</Link>
-            </Menu>
+                <div className='menu-items'>
+                  <div class="dropdown">
+                    <button class="dropbtn">Categories
+                      <FaCaretDown />
+                    </button>
+                    <div class="dropdown-content">
+                      <Link className='navText' to="/bird-identification">Bird Idenfication</Link>
+                      <Link className='navText' to="/tips">Birdwatching Tips</Link>
+                      <Link className='navText' to="/photography">Photography</Link>
+                      <Link className='navText' to="/locations">Birdwatching Locations</Link>
+                      <Link className='navText' to="/conservation-and-preservation">Conservation and Preservation</Link>
+                      <Link className='navText' to="/behavior-and-biology">Behavior and Biology</Link>
+                      <Link className='navText' to="/binoculars-and-gear">Binoculars and Gear</Link>
+                      <Link className='navText' to="/events-and-meetups">Birding Events and Meetups</Link>
+                      <Link className='navText' to="/stories-and-experiences">Birdwatching Stories and Experiences</Link>
+                      <Link className='navText' to="/recources">Birdwatching Resources</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+
+            {smallMenu && ( */}
+            <>
+              <img
+                className='navbar-logo'
+                alt='Tweeter logo'
+                src='/images/logo/tweeter-bird-small.png'
+                onClick={() => navigate("/")}
+                style={{ cursor: 'pointer' }}
+              />
+
+              <div className='menu-outer'>
+                <CgProfile className='profile-icon' />
+                <Menu right className="menu">
+                  <Link className='navText' to="/bird-identification">Bird Idenfication</Link>
+                  <Link className='navText' to="/tips">Birdwatching Tips</Link>
+                  <Link className='navText' to="/photography">Photography</Link>
+                  <Link className='navText' to="/locations">Birdwatching Locations</Link>
+                  <Link className='navText' to="/conservation-and-preservation">Conservation/Preservation</Link>
+                  <Link className='navText' to="/behavior-and-biology">Behavior and Biology</Link>
+                  <Link className='navText' to="/binoculars-and-gear">Binoculars & Gear</Link>
+                  <Link className='navText' to="/events-and-meetups">Events & Meetups</Link>
+                  <Link className='navText' to="/stories-and-experiences">Stories & Experiences</Link>
+                  <Link className='navText' to="/recources">Birdwatching Resources</Link>
+                </Menu>
+
+              </div>
+            </>
+            {/* )} */}
           </NavbarComponent>
         </NavbarContainer>
       </OuterNav>
@@ -38,13 +107,14 @@ function Navbar() {
   );
 }
 
+
 const OuterNav = styled.header`
   display: grid;
   grid-template-rows: auto;
 `;
 
 const NavbarContainer = styled.div`
-  margin: 2rem;
+  margin: 0 2rem 0 2rem;
 `;
 
 const NavbarComponent = styled.header`
@@ -60,11 +130,26 @@ const NavbarComponent = styled.header`
   border-bottom: 1px solid #acbcff;
   background-color: #fff;
 
+
+
   .navbar-logo {
     grid-row: 1;
     grid-column: 2;
     justify-self: center;
     height: 50px;
+  }
+
+  .menu-outer {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .profile-icon {
+    font-size: 3.2rem;
+
+    &:hover {
+      color: #B799FF;
+    }
   }
 
   .menu {
@@ -74,6 +159,7 @@ const NavbarComponent = styled.header`
   .navText {
     text-decoration: none;
     color: #000;
+    font-weight: 700;
   }
 
 
@@ -148,8 +234,5 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 `
-const CustomMenu = styled(Menu)`
-  top: 0; /* Move the menu to the top */
-`;
 
 export default Navbar

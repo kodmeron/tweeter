@@ -79,6 +79,15 @@ body {
   overflow-y: scroll;
 }
 
+@media screen and (min-width: 990px) {  
+  
+  body {
+  padding-top: 11rem;
+
+}
+
+}
+
 main {
   /* min-height for each will show navbar and main content */
   min-height: calc(100vh - var(--navbar-height));
