@@ -32,7 +32,7 @@ const Post = () => {
   return (
     <div>
       <h2>{post.postName}</h2>
-      <p>Author: {post.name}</p>
+      <p>Author: {post.authorEmail}</p>
       <p>{post.postText}</p>
     </div>
   )
