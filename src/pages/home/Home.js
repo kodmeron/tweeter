@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import picture from "../../images/LandingPage_picture.png";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 function Home() {
   const mockData = {
@@ -97,7 +99,15 @@ function Home() {
     ],
   };
 
-  const [open, isOpen] = useState(false);
+  const [openAccordions, setOpenAccordions] = useState([]);
+
+  const toggleAccordion = (id) => {
+    setOpenAccordions((prevAccordions) =>
+      prevAccordions.includes(id)
+        ? prevAccordions.filter((accordionId) => accordionId !== id)
+        : [...prevAccordions, id]
+    );
+  };
 
   const posts = mockData.posts;
 
@@ -107,18 +117,37 @@ function Home() {
         <div className="mid">
           <div className="inner">
             {posts.map((post) => (
-              <>
-                <div className="section-bar" key={post.id}>
+              <div
+                className={`accordion ${
+                  openAccordions.includes(post.id) ? "open" : ""
+                }`}
+                key={post.id}
+              >
+                <div
+                  className="section-bar"
+                  onClick={() => toggleAccordion(post.id)}
+                >
                   <a className="category" href="#">
                     {post.category}
                   </a>
+                  <div className="accordion-icon">
+                    {openAccordions.includes(post.id) ? (
+                      <FaMinus />
+                    ) : (
+                      <FaPlus />
+                    )}
+                  </div>
                 </div>
-                <a className="content" href="#">
-                  {post.title}
-                  <br />
-                  Post by: {post.author}
-                </a>
-              </>
+                {openAccordions.includes(post.id) && (
+                  <div className="accordion-content">
+                    <a className={"content"} href="#">
+                      {post.title}
+                      <br />
+                      Post by: {post.author}
+                    </a>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>
@@ -136,7 +165,7 @@ const HomeComponent = styled.header`
   .outer {
     grid-column: 2;
     grid-row: 2;
-    background-color: #b799ff;
+    background-color: #e6fffd;
   }
 
   .mid {
@@ -154,21 +183,35 @@ const HomeComponent = styled.header`
   }
 
   .section-bar {
-    background-color: #acbcff;
+    background-color: #aee2ff;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
   }
 
   a {
     font-size: 2rem;
     text-decoration: none;
-    color: white;
+    color: #b799ff;
   }
 
   .content {
     color: black;
     font-size: 1.5rem;
-    background-color: #aee2ff;
+    // background-color: #acbcff;
+  }
+
+  img {
+    width: 20%;
+  }
+
+  .img-container {
+    margin: 100px;
+  }
+
+  .popular-posts {
+    border: 5px solid hotpink;
+    margin-bottom: 20px;
   }
 `;
 
