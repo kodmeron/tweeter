@@ -19,7 +19,7 @@
 
 :root {
   /* Spacing, heights and widths */
-  --navbar-height: 13rem;
+  --navbar-height: 7rem;
 
   --spacing-xxs: 1%;
   --spacing-xs: 2.05%;
@@ -75,10 +75,10 @@ body {
   font-family: var(--lato) !important;
   color: var(--text-black) !important;
   line-height: 1.5 !important;
-
   /* Add padding behind navbar */
-  padding-top: 13rem;
-  overflow-x: hidden;
+  padding-top: 7rem;
+  overflow-x: hidden; 
+
   overflow-y: scroll;
 }
 
