@@ -35,6 +35,7 @@ const Profile = () => {
     <ProfileStyles>
       <ProfileLeftSide setActiveComponent={setActiveComponent} />
       <div>{renderComponent()}</div>
+      {/* :) */}
     </ProfileStyles>
   );
 };
