@@ -42,10 +42,10 @@ export const Signin = () => {
 const SigninCompponent = styled.header`
 
  .input {
-    padding: 10px;
+    padding: 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 1.6rem;
     transition: border-color 0.3s ease;
     width: 100%;
     margin-bottom: 10px;
