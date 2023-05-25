@@ -1,59 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserAuth } from "../auth/AuthContextProvider";
-import { auth } from '../firebase';
 import { slide as Menu } from 'react-burger-menu';
 import { CgProfile } from "react-icons/cg";
-import { FaCaretDown } from "react-icons/fa";
+import { Signin } from "../auth/Signin";
 
 function Navbar() {
   const navigate = useNavigate();
-  const [smallMenu, setSmallMenu] = useState(false);
-  const [bigMenu, setBigMenu] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { signIn } = UserAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const { user, handleLogout } = UserAuth();
 
-
-
-  useEffect(() => {
-    console.log(auth)
-  }, [])
-  const handleSignin = (event) => {
-    event.preventDefault();
-    signIn(email, password);
-  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      const screenWidth = window.innerWidth;
-      setSmallMenu(screenWidth < 990);
-    };
-
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const screenWidth = window.innerWidth;
-      setBigMenu(screenWidth > 990);
-    };
-
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <>
@@ -76,21 +37,7 @@ function Navbar() {
                   </div>
                   {isOpen && (
                     <div className="dropdown-content">
-                      <form onSubmit={handleSignin}>
-                        <input
-                          type="email"
-                          placeholder="Email"
-                          value={email}
-                          onChange={(event) => setEmail(event.target.value)}
-                        />
-                        <input
-                          type="password"
-                          placeholder="Password"
-                          value={password}
-                          onChange={(event) => setPassword(event.target.value)}
-                        />
-                        <button type="submit">Sign in</button>
-                      </form>
+                      <Signin />
                       <h1>{user ? "Logged in" : "Logged out"}</h1>
                       <button onClick={handleLogout}>Logout</button>
                     </div>
@@ -174,9 +121,10 @@ const NavbarComponent = styled.header`
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-80%);
   opacity: 0;
   visibility: hidden;
+  width: 300px;
   padding: 10px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -195,11 +143,6 @@ const NavbarComponent = styled.header`
   opacity: 1;
   visibility: visible;
 }
-
-
-
-
-
 
   .menu {
     font-size: 2rem;
