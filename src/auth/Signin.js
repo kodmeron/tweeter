@@ -18,6 +18,7 @@ export const Signin = () => {
 
   return (
     <SigninCompponent>
+      <h1>Sign in!</h1>
       <form onSubmit={handleSignin}>
         <input
           className="input"
@@ -33,7 +34,7 @@ export const Signin = () => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <button type="submit">Sign in</button>
+        <button className="btn" type="submit">Sign in</button>
       </form>
     </SigninCompponent>
   );
@@ -59,6 +60,34 @@ const SigninCompponent = styled.header`
   .input::placeholder {
     color: #999;
   }
+
+  .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #B799FF;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #acbcff;
+}
+
+.btn:active {
+  background-color: #322db7;
+}
+
+.btn:focus {
+  outline: none;
+}
+
 
 `
 

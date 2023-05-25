@@ -11,10 +11,10 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, handleLogout } = UserAuth();
 
-
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
 
   return (
     <>
@@ -37,9 +37,14 @@ function Navbar() {
                   </div>
                   {isOpen && (
                     <div className="dropdown-content">
-                      <Signin />
-                      <h1>{user ? "Logged in" : "Logged out"}</h1>
-                      <button onClick={handleLogout}>Logout</button>
+                      {user ? (
+                        <div>
+                          <h1>Logged in</h1>
+                          <button className='btn' onClick={handleLogout}>Logout</button>
+                        </div>
+                      ) : (
+                        <Signin />
+                      )}
                     </div>
                   )}
                 </div>
@@ -143,6 +148,34 @@ const NavbarComponent = styled.header`
   opacity: 1;
   visibility: visible;
 }
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #B799FF;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #acbcff;
+}
+
+.btn:active {
+  background-color: #322db7;
+}
+
+.btn:focus {
+  outline: none;
+}
+
 
   .menu {
     font-size: 2rem;
