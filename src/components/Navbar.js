@@ -1,78 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { UserAuth } from "../auth/AuthContextProvider";
 import { slide as Menu } from 'react-burger-menu';
 import { CgProfile } from "react-icons/cg";
-import { FaCaretDown } from "react-icons/fa";
+import { Signin } from "../auth/Signin";
 
 function Navbar() {
   const navigate = useNavigate();
-  const [smallMenu, setSmallMenu] = useState(false);
-  const [bigMenu, setBigMenu] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const { user, handleLogout } = UserAuth();
 
-  useEffect(() => {
-    const handleResize = () => {
-      const screenWidth = window.innerWidth;
-      setSmallMenu(screenWidth < 990);
-    };
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const screenWidth = window.innerWidth;
-      setBigMenu(screenWidth > 990);
-    };
-
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <>
       <OuterNav>
         <NavbarContainer>
           <NavbarComponent>
-            {/* {bigMenu && (
-              <div className='big-menu-outer'>
-                <img
-                  className='navbar-logo'
-                  alt='Tweeter logo'
-                  src='/images/logo/tweeter-small.png'
-                  onClick={() => navigate("/")}
-                  style={{ cursor: 'pointer' }}
-                />
-
-                <div className='menu-items'>
-                  <div class="dropdown">
-                    <button class="dropbtn">Categories
-                      <FaCaretDown />
-                    </button>
-                    <div class="dropdown-content">
-                      <Link className='navText' to="/bird-identification">Bird Idenfication</Link>
-                      <Link className='navText' to="/tips">Birdwatching Tips</Link>
-                      <Link className='navText' to="/photography">Photography</Link>
-                      <Link className='navText' to="/locations">Birdwatching Locations</Link>
-                      <Link className='navText' to="/conservation-and-preservation">Conservation and Preservation</Link>
-                      <Link className='navText' to="/behavior-and-biology">Behavior and Biology</Link>
-                      <Link className='navText' to="/binoculars-and-gear">Binoculars and Gear</Link>
-                      <Link className='navText' to="/events-and-meetups">Birding Events and Meetups</Link>
-                      <Link className='navText' to="/stories-and-experiences">Birdwatching Stories and Experiences</Link>
-                      <Link className='navText' to="/recources">Birdwatching Resources</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-
-            {smallMenu && ( */}
             <>
               <img
                 className='navbar-logo'
@@ -83,7 +31,23 @@ function Navbar() {
               />
 
               <div className='menu-outer'>
-                <CgProfile className='profile-icon' />
+                <div className="dropdown-menu">
+                  <div className="dropdown-header" onClick={toggleDropdown}>
+                    <CgProfile className="profile-icon" />
+                  </div>
+                  {isOpen && (
+                    <div className="dropdown-content">
+                      {user ? (
+                        <div>
+                          <h1>Logged in</h1>
+                          <button className='btn' onClick={handleLogout}>Logout</button>
+                        </div>
+                      ) : (
+                        <Signin />
+                      )}
+                    </div>
+                  )}
+                </div>
                 <Menu right className="menu">
                   <Link className='navText' to="/bird-identification">Bird Idenfication</Link>
                   <Link className='navText' to="/tips">Birdwatching Tips</Link>
@@ -99,7 +63,6 @@ function Navbar() {
 
               </div>
             </>
-            {/* )} */}
           </NavbarComponent>
         </NavbarContainer>
       </OuterNav>
@@ -130,8 +93,6 @@ const NavbarComponent = styled.header`
   border-bottom: 1px solid #acbcff;
   background-color: #fff;
 
-
-
   .navbar-logo {
     grid-row: 1;
     grid-column: 2;
@@ -151,6 +112,70 @@ const NavbarComponent = styled.header`
       color: #B799FF;
     }
   }
+
+  .dropdown-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-header {
+  cursor: pointer;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-80%);
+  opacity: 0;
+  visibility: hidden;
+  width: 300px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.dropdown-content h1 {
+  margin: 0;
+}
+
+.dropdown-content button {
+  margin-top: 10px;
+}
+
+.dropdown-menu:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #B799FF;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #acbcff;
+}
+
+.btn:active {
+  background-color: #322db7;
+}
+
+.btn:focus {
+  outline: none;
+}
+
 
   .menu {
     font-size: 2rem;
