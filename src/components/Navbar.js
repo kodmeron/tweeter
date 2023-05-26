@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserAuth } from "../auth/AuthContextProvider";
@@ -8,13 +8,29 @@ import { Signin } from "../auth/Signin";
 
 function Navbar() {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, handleLogout } = UserAuth();
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  const openDropdown = () => {
+    setIsDropdownOpen(true);
   };
 
+  const closeDropdown = () => {
+    setTimeout(() => {
+      setIsDropdownOpen(false);
+    }, 200); // Adjust the delay time (in milliseconds) as needed
+  };
+
+  const redirectToProfile = () => {
+    navigate("/profile"); // Replace "/profile" with the desired route for the profile page
+  };
+
+  useEffect(() => {
+    return () => {
+      // Clear the timeout when the component unmounts
+      clearTimeout(closeDropdown);
+    };
+  }, []);
 
   return (
     <>
@@ -32,35 +48,39 @@ function Navbar() {
 
               <div className='menu-outer'>
                 <div className="dropdown-menu">
-                  <div className="dropdown-header" onClick={toggleDropdown}>
+                  <div
+                    className="dropdown-header"
+                    onMouseEnter={openDropdown}
+                    onMouseLeave={closeDropdown}
+                    onClick={redirectToProfile}
+                  >
                     <CgProfile className="profile-icon" />
+                    {isDropdownOpen && (
+                      <div className="dropdown-content">
+                        {user ? (
+                          <div>
+                            <h1>Logged in</h1>
+                            <button className='btn' onClick={handleLogout}>Logout</button>
+                          </div>
+                        ) : (
+                          <Signin />
+                        )}
+                      </div>
+                    )}
                   </div>
-                  {isOpen && (
-                    <div className="dropdown-content">
-                      {user ? (
-                        <div>
-                          <h1>Logged in</h1>
-                          <button className='btn' onClick={handleLogout}>Logout</button>
-                        </div>
-                      ) : (
-                        <Signin />
-                      )}
-                    </div>
-                  )}
                 </div>
                 <Menu right className="menu">
-                  <Link className='navText' to="/bird-identification">Bird Idenfication</Link>
+                  <Link className='navText' to="/bird-identification">Bird Identification</Link>
                   <Link className='navText' to="/tips">Birdwatching Tips</Link>
                   <Link className='navText' to="/photography">Photography</Link>
                   <Link className='navText' to="/locations">Birdwatching Locations</Link>
-                  <Link className='navText' to="/conservation-and-preservation">Conservation/Preservation</Link>
+                  <Link className='navText' to="/conservation-and-preservation">Sustainability</Link>
                   <Link className='navText' to="/behavior-and-biology">Behavior and Biology</Link>
                   <Link className='navText' to="/binoculars-and-gear">Binoculars & Gear</Link>
                   <Link className='navText' to="/events-and-meetups">Events & Meetups</Link>
                   <Link className='navText' to="/stories-and-experiences">Stories & Experiences</Link>
-                  <Link className='navText' to="/recources">Birdwatching Resources</Link>
+                  <Link className='navText' to="/resources">Birdwatching Resources</Link>
                 </Menu>
-
               </div>
             </>
           </NavbarComponent>
@@ -69,6 +89,8 @@ function Navbar() {
     </>
   );
 }
+
+
 
 
 const OuterNav = styled.header`
