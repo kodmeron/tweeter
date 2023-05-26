@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import picture from "../../images/LandingPage_picture.png";
+import TweeterBanner from "./banner/tweeter-banner.png";
 import { FaPlus, FaMinus } from "react-icons/fa";
+
 
 function Home() {
   const mockData = {
@@ -112,49 +113,76 @@ function Home() {
   const posts = mockData.posts;
 
   return (
-    <HomeComponent>
-      <div className="outer">
-        <div className="mid">
-          <div className="inner">
-            {posts.map((post) => (
-              <div
-                className={`accordion ${
-                  openAccordions.includes(post.id) ? "open" : ""
-                }`}
-                key={post.id}
-              >
+    <>
+      <OuterComponent>
+        <div className="banner-container">
+          <img
+            className='banner'
+            alt='Tweeter banner with forest'
+            src={TweeterBanner}
+          />
+        </div>
+      </OuterComponent>
+      <HomeComponent>
+
+        <div className="outer">
+          <div className="mid">
+            <div className="inner">
+              {posts.map((post) => (
                 <div
-                  className="section-bar"
-                  onClick={() => toggleAccordion(post.id)}
+                  className={`accordion ${openAccordions.includes(post.id) ? "open" : ""
+                    }`}
+                  key={post.id}
                 >
-                  <a className="category" href="#">
-                    {post.category}
-                  </a>
-                  <div className="accordion-icon">
-                    {openAccordions.includes(post.id) ? (
-                      <FaMinus />
-                    ) : (
-                      <FaPlus />
-                    )}
-                  </div>
-                </div>
-                {openAccordions.includes(post.id) && (
-                  <div className="accordion-content">
-                    <a className={"content"} href="#">
-                      {post.title}
-                      <br />
-                      Post by: {post.author}
+                  <div
+                    className="section-bar"
+                    onClick={() => toggleAccordion(post.id)}
+                  >
+                    <a className="category" href="#">
+                      {post.category}
                     </a>
+                    <div className="accordion-icon">
+                      {openAccordions.includes(post.id) ? (
+                        <FaMinus />
+                      ) : (
+                        <FaPlus />
+                      )}
+                    </div>
                   </div>
-                )}
-              </div>
-            ))}
+                  {openAccordions.includes(post.id) && (
+                    <div className="accordion-content">
+                      <a className={"content"} href="#">
+                        {post.title}
+                        <br />
+                        Post by: {post.author}
+                      </a>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </HomeComponent>
+      </HomeComponent>
+    </>
   );
-}
+};
+
+const OuterComponent = styled.header`
+  width: 100vw;
+
+  .banner-container {
+    width: 100vw;
+    height: 300px; /* Adjust the desired height */
+    overflow: hidden;
+  }
+
+  .banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`
 
 const HomeComponent = styled.header`
   display: grid;
@@ -165,7 +193,7 @@ const HomeComponent = styled.header`
   .outer {
     grid-column: 2;
     grid-row: 2;
-    background-color: #e6fffd;
+    background-color:   #f7f7f7;
   }
 
   .mid {
@@ -183,16 +211,21 @@ const HomeComponent = styled.header`
   }
 
   .section-bar {
-    background-color: #aee2ff;
+    background-color: #B799FF;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
+    padding: 5px;
   }
 
   a {
     font-size: 2rem;
     text-decoration: none;
-    color: #b799ff;
+    color: #000;
+  }
+
+  .accordion-content {
+    background-color: #E6FFFD;
   }
 
   .content {
@@ -201,8 +234,10 @@ const HomeComponent = styled.header`
     // background-color: #acbcff;
   }
 
-  img {
-    width: 20%;
+
+  .accordion-icon {
+    align-self: center;
+    font-size: 1.6rem;
   }
 
   .img-container {
