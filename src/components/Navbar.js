@@ -99,7 +99,7 @@ const OuterNav = styled.header`
 `;
 
 const NavbarContainer = styled.div`
-  margin: 0 2rem 0 2rem;
+  
 `;
 
 const NavbarComponent = styled.header`
@@ -111,7 +111,7 @@ const NavbarComponent = styled.header`
   column-gap: 20px;
   align-items: center;
   justify-content: space-between;
-  width: calc(100vw - 4rem); /* Subtract the margin from the width */
+  width: calc(100vw); /* Subtract the margin from the width */
   border-bottom: 1px solid #acbcff;
   background-color: #fff;
 
@@ -120,11 +120,13 @@ const NavbarComponent = styled.header`
     grid-column: 2;
     justify-self: center;
     height: 50px;
+    margin: 2rem;
   }
 
   .menu-outer {
     display: flex;
     gap: 2rem;
+    margin: 2rem;
   }
 
   .profile-icon {
