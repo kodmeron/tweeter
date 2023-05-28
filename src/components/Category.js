@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase"
+import CommentPost from "./CommentPost";
 
 const Category = () => {
   const [posts, setPosts] = useState([])
@@ -46,4 +47,4 @@ const Category = () => {
   )  
 }
 
-export default Category;
+export default Category 
