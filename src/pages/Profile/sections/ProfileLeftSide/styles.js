@@ -13,17 +13,18 @@ gap: 1rem;
 margin: 10px 0;
 `
 export const ProfilePic = styled.div`
-  width: 75px;
-  height: 75px;
+& > img {
+
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background-color: #222;
-  /* Add any additional styles for the profile picture */
+}
 `;
 
 export const ProfileName = styled.h1`
   font-size: 2.8rem;
   color: #E6FFFD;
-  /* Add any additional styles for the profile name */
 `;
 
 export const Sidebar = styled.div`

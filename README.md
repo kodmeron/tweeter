@@ -1,11 +1,18 @@
-## Git branch name and commmit structure
+# Project Documentation
 
-### This how we name the branches:
+## Git Branch Naming and Commit Structure
+
+### Branch Naming
+Branches should be named using the following format:
+
+"Epicname_taskname"
+
+For example:
 
 "Epicname_taskname"
 </br>
 For example:</br>
-landingpage_Herosection
+Landingpage_herosection
 
 ### This how to structure the commit message
 

@@ -3,18 +3,33 @@ import { ProfileLeftSideStyles, ProfileInformationContainer, ProfilePic, Profile
 import { CiSettings } from 'react-icons/ci';
 import { AiFillCaretRight } from 'react-icons/ai';
 import { UserAuth } from '../../../../auth/AuthContextProvider';
+import { doc, getDoc } from "firebase/firestore";
+import { db } from '../../../../firebase';
 
 const ProfileLeftSide = ({ setActiveComponent }) => {
   const { user, handleLogout } = UserAuth()
   const [userEmail, setUserEmail] = useState("")
   const [activeButton, setActiveButton] = useState('posts');
+  const [profilePictureUrl, setProfilePictureUrl] = useState("");
+  const [profileUsername, setProfileUsername] = useState("");
 
   useEffect(() => {
-    const emailParts = user?.email?.split('@');
-    const firstPartOfEmail = emailParts ? emailParts[0] : '';
-    setUserEmail(firstPartOfEmail)
-  }
-    , [user])
+    const fetchUserData = async () => {
+      try {
+        const userDocRef = doc(db, "users", user?.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setProfilePictureUrl(userData.profilePicture);
+          setProfileUsername(userData.username);
+        }
+      } catch (error) {
+        console.log("Error retrieving user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
 
   const handleButtonClick = (component) => {
     setActiveComponent(component);
@@ -25,8 +40,10 @@ const ProfileLeftSide = ({ setActiveComponent }) => {
   return (
     <ProfileLeftSideStyles>
       <ProfileInformationContainer>
-        <ProfilePic />
-        <ProfileName>{user?.email && userEmail}</ProfileName>
+        <ProfilePic >
+          <img src={profilePictureUrl} alt="" />
+        </ProfilePic>
+        <ProfileName>{user?.email && profileUsername}</ProfileName>
       </ProfileInformationContainer>
       <Sidebar>
         <SidebarButton
