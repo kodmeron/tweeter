@@ -59,7 +59,16 @@ const CreatePost = () => {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="Bird Identification">Bird Identification</option>
+            <option value="Birdwatching Tips">Birdwatching Tips</option>
             <option value="Photography">Photography</option>
+            <option value="Birdwatching">Birdwatching</option>
+            <option value="Locations">Locations</option>
+            <option value="Conservation & Preservation">Conservation & Preservation</option>
+            <option value="Behaviour & Biology">Behaviour & Biology</option>
+            <option value="Binoculars & Gear">Binoculars & Gear</option>
+            <option value="Events & Meetups">Events & Meetups</option>
+            <option value="Stories & Experiences">Stories & Experiences</option>
+            <option value="Resources">Resources</option>
           </select>
         </div>
         <div>
