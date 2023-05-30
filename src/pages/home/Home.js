@@ -10,11 +10,10 @@ function Home() {
 
   const [openAccordions, setOpenAccordions] = useState([]);
   const [posts, setPosts] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState("Bird Identification")
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, "posts"), where("category", "==", selectedCategory)),
+      query(collection(db, "posts"),),
       (snapshot) => {
         const postsData = [];
         snapshot.forEach((doc) => {
@@ -25,7 +24,7 @@ function Home() {
     );
 
     return () => unsubscribe();
-  }, [selectedCategory]);
+  }, []);
 
 
 
@@ -57,32 +56,33 @@ function Home() {
             <div className="inner">
               {Object.entries(groupedPosts).map(([category, posts]) => (
                 <div
-                  className={`accordion ${openAccordions.includes(posts[0].id) ? "open" : ""
-                    }`}
+                  className={`accordion ${
+                    openAccordions.includes(posts.id) ? "open" : ""
+                  }`}
                   key={category}
                 >
                   <div
                     className="section-bar"
-                    onClick={() => toggleAccordion(posts[0].id)}
+                    onClick={() => toggleAccordion(posts.id)}
                   >
                     <a className="category" href="#">
                       {category}
                     </a>
                     <div className="accordion-icon">
-                      {openAccordions.includes(posts[0].id) ? (
+                      {openAccordions.includes(posts.id) ? (
                         <FaMinus />
                       ) : (
                         <FaPlus />
                       )}
                     </div>
                   </div>
-                  {openAccordions.includes(posts[0].id) && (
+                  {openAccordions.includes(posts.id) && (
                     <div className="accordion-content">
                       {posts.map((post) => (
                         <a className="content" href="#" key={post.id}>
                           <div className="post-title">{post.title}</div>
                           <div className="post-author">
-                            Post By: {post.author}
+                            Post: {post.postName}
                           </div>
                           <br />
                           <div className="post-separator" />
