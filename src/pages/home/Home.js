@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import TweeterBanner from "./banner/tweeter-banner.png";
 import { FaPlus, FaMinus } from "react-icons/fa";
-
+import { groupBy } from "lodash";
 
 function Home() {
   const mockData = {
@@ -18,6 +18,12 @@ function Home() {
       },
       {
         id: 2,
+        category: "Bird Identification",
+        title: "Another Bird Identification Question",
+        author: "TheWatcher12",
+      },
+      {
+        id: 3,
         category: "Birdwatching Tips",
         title: "Tips for Beginners",
         content:
@@ -26,7 +32,7 @@ function Home() {
         date: "2023-05-16T14:45:00",
       },
       {
-        id: 3,
+        id: 4,
         category: "Photography",
         title: "Bird Photography Techniques",
         content:
@@ -35,7 +41,7 @@ function Home() {
         date: "2023-05-17T09:15:00",
       },
       {
-        id: 4,
+        id: 5,
         category: "Birdwatching Locations",
         title: "Best Birding Spots in the Region",
         content:
@@ -44,7 +50,7 @@ function Home() {
         date: "2023-05-17T15:55:00",
       },
       {
-        id: 5,
+        id: 6,
         category: "Conservation and Preservation",
         title: "Protecting Bird Habitats",
         content:
@@ -53,7 +59,7 @@ function Home() {
         date: "2023-05-18T08:20:00",
       },
       {
-        id: 6,
+        id: 7,
         category: "Behavior and Biology",
         title: "Understanding Bird Behavior",
         content:
@@ -62,7 +68,7 @@ function Home() {
         date: "2023-05-19T11:40:00",
       },
       {
-        id: 7,
+        id: 8,
         category: "Binoculars and Gear",
         title: "Recommendations for Binoculars",
         content:
@@ -71,7 +77,7 @@ function Home() {
         date: "2023-05-20T16:10:00",
       },
       {
-        id: 8,
+        id: 9,
         category: "Events and Meetups",
         title: "Upcoming Birdwatching Event",
         content:
@@ -80,7 +86,7 @@ function Home() {
         date: "2023-05-21T09:30:00",
       },
       {
-        id: 9,
+        id: 10,
         category: "Stories and Experiences",
         title: "Unforgettable Bird Encounter",
         content:
@@ -88,7 +94,7 @@ function Home() {
         author: "WingedAdventurer",
       },
       {
-        id: 10,
+        id: 11,
         category: "Resources",
         title: "Useful resources for birdwatchers",
         content:
@@ -100,7 +106,9 @@ function Home() {
     ],
   };
 
-  const [openAccordions, setOpenAccordions] = useState([]);
+  const [openAccordions, setOpenAccordions] = useState(
+    mockData.posts.map((post) => post.id)
+  );
 
   const toggleAccordion = (id) => {
     setOpenAccordions((prevAccordions) =>
@@ -112,50 +120,57 @@ function Home() {
 
   const posts = mockData.posts;
 
+  const groupedPosts = groupBy(posts, "category");
+
   return (
     <>
       <OuterComponent>
         <div className="banner-container">
           <img
-            className='banner'
-            alt='Tweeter banner with forest'
+            className="banner"
+            alt="Tweeter banner with forest"
             src={TweeterBanner}
           />
         </div>
       </OuterComponent>
       <HomeComponent>
-
         <div className="outer">
           <div className="mid">
             <div className="inner">
-              {posts.map((post) => (
+              {Object.entries(groupedPosts).map(([category, posts]) => (
                 <div
-                  className={`accordion ${openAccordions.includes(post.id) ? "open" : ""
-                    }`}
-                  key={post.id}
+                  className={`accordion ${
+                    openAccordions.includes(posts[0].id) ? "open" : ""
+                  }`}
+                  key={category}
                 >
                   <div
                     className="section-bar"
-                    onClick={() => toggleAccordion(post.id)}
+                    onClick={() => toggleAccordion(posts[0].id)}
                   >
                     <a className="category" href="#">
-                      {post.category}
+                      {category}
                     </a>
                     <div className="accordion-icon">
-                      {openAccordions.includes(post.id) ? (
+                      {openAccordions.includes(posts[0].id) ? (
                         <FaMinus />
                       ) : (
                         <FaPlus />
                       )}
                     </div>
                   </div>
-                  {openAccordions.includes(post.id) && (
+                  {openAccordions.includes(posts[0].id) && (
                     <div className="accordion-content">
-                      <a className={"content"} href="#">
-                        {post.title}
-                        <br />
-                        Post by: {post.author}
-                      </a>
+                      {posts.map((post) => (
+                        <a className="content" href="#" key={post.id}>
+                          <div className="post-title">{post.title}</div>
+                          <div className="post-author">
+                            Post By: {post.author}
+                          </div>
+                          <br />
+                          <div className="post-separator" />
+                        </a>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -166,7 +181,7 @@ function Home() {
       </HomeComponent>
     </>
   );
-};
+}
 
 const OuterComponent = styled.header`
   width: 100vw;
@@ -182,7 +197,7 @@ const OuterComponent = styled.header`
     height: 100%;
     object-fit: cover;
   }
-`
+`;
 
 const HomeComponent = styled.header`
   display: grid;
@@ -193,7 +208,7 @@ const HomeComponent = styled.header`
   .outer {
     grid-column: 2;
     grid-row: 2;
-    background-color:   #f7f7f7;
+    background-color: #f7f7f7;
   }
 
   .mid {
@@ -211,7 +226,7 @@ const HomeComponent = styled.header`
   }
 
   .section-bar {
-    background-color: #B799FF;
+    background-color: #b799ff;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -225,7 +240,8 @@ const HomeComponent = styled.header`
   }
 
   .accordion-content {
-    background-color: #E6FFFD;
+    background-color: #e6fffd;
+    margin-left: 2;
   }
 
   .content {
@@ -233,7 +249,6 @@ const HomeComponent = styled.header`
     font-size: 1.5rem;
     // background-color: #acbcff;
   }
-
 
   .accordion-icon {
     align-self: center;
@@ -247,6 +262,15 @@ const HomeComponent = styled.header`
   .popular-posts {
     border: 5px solid hotpink;
     margin-bottom: 20px;
+  }
+
+  .post-title {
+    font-weight: bold;
+  }
+
+  .post-separator {
+    border-bottom: 1px solid #acbcff;
+    margin-bottom: 10px;
   }
 `;
 
