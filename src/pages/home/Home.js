@@ -1,114 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import TweeterBanner from "./banner/tweeter-banner.png";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { groupBy } from "lodash";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { db } from "../../firebase";
 
 function Home() {
-  const mockData = {
-    posts: [
-      {
-        id: 1,
-        category: "Bird Identification",
-        title: "Help Identifying a Bird",
-        content:
-          "I spotted a bird in my backyard, but I'm not sure what species it is. Can anyone help me identify it?",
-        author: "BirdWatcher123",
-        date: "2023-05-15T10:30:00",
-      },
-      {
-        id: 2,
-        category: "Bird Identification",
-        title: "Another Bird Identification Question",
-        author: "TheWatcher12",
-      },
-      {
-        id: 3,
-        category: "Birdwatching Tips",
-        title: "Tips for Beginners",
-        content:
-          "I'm new to birdwatching and would love some tips to get started. Any suggestions?",
-        author: "FeatherFinder",
-        date: "2023-05-16T14:45:00",
-      },
-      {
-        id: 4,
-        category: "Photography",
-        title: "Bird Photography Techniques",
-        content:
-          "Let's discuss some effective techniques for capturing beautiful bird photos. Share your tips and tricks!",
-        author: "ShutterBird",
-        date: "2023-05-17T09:15:00",
-      },
-      {
-        id: 5,
-        category: "Birdwatching Locations",
-        title: "Best Birding Spots in the Region",
-        content:
-          "Share your favorite birdwatching locations in our region. I'm looking for some new places to explore!",
-        author: "NatureLover",
-        date: "2023-05-17T15:55:00",
-      },
-      {
-        id: 6,
-        category: "Conservation and Preservation",
-        title: "Protecting Bird Habitats",
-        content:
-          "Let's discuss the importance of conserving bird habitats and share conservation initiatives we can support.",
-        author: "EcoAvenger",
-        date: "2023-05-18T08:20:00",
-      },
-      {
-        id: 7,
-        category: "Behavior and Biology",
-        title: "Understanding Bird Behavior",
-        content:
-          "Do you have any insights into bird behavior? Let's explore their fascinating biology and behaviors.",
-        author: "CuriousOrnithologist",
-        date: "2023-05-19T11:40:00",
-      },
-      {
-        id: 8,
-        category: "Binoculars and Gear",
-        title: "Recommendations for Binoculars",
-        content:
-          "I'm in the market for a new pair of binoculars. Any recommendations for birdwatching?",
-        author: "OpticsEnthusiast",
-        date: "2023-05-20T16:10:00",
-      },
-      {
-        id: 9,
-        category: "Events and Meetups",
-        title: "Upcoming Birdwatching Event",
-        content:
-          "There's a birdwatching event happening next week in our area. Who's planning to attend?",
-        author: "BirdEnthusiast",
-        date: "2023-05-21T09:30:00",
-      },
-      {
-        id: 10,
-        category: "Stories and Experiences",
-        title: "Unforgettable Bird Encounter",
-        content:
-          "Share your most memorable birdwatching experience or an interesting encounter you've had with a bird.",
-        author: "WingedAdventurer",
-      },
-      {
-        id: 11,
-        category: "Resources",
-        title: "Useful resources for birdwatchers",
-        content:
-          "Let's compile a list of helpful resources for birdwatchers, such as websites, apps, books, and field guides. Share your favorites!",
-        category: "Resources",
-        author: "AvianAdventurer",
-        timestamp: "2023-05-19 13:55:00",
-      },
-    ],
-  };
 
-  const [openAccordions, setOpenAccordions] = useState(
-    mockData.posts.map((post) => post.id)
-  );
+  const [openAccordions, setOpenAccordions] = useState([]);
+  const [posts, setPosts] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState("Bird Identification")
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      query(collection(db, "posts"), where("category", "==", selectedCategory)),
+      (snapshot) => {
+        const postsData = [];
+        snapshot.forEach((doc) => {
+          postsData.push({ id: doc.id, ...doc.data() });
+        });
+        setPosts(postsData);
+      }
+    );
+
+    return () => unsubscribe();
+  }, [selectedCategory]);
+
+
 
   const toggleAccordion = (id) => {
     setOpenAccordions((prevAccordions) =>
@@ -118,7 +37,6 @@ function Home() {
     );
   };
 
-  const posts = mockData.posts;
 
   const groupedPosts = groupBy(posts, "category");
 
@@ -139,9 +57,8 @@ function Home() {
             <div className="inner">
               {Object.entries(groupedPosts).map(([category, posts]) => (
                 <div
-                  className={`accordion ${
-                    openAccordions.includes(posts[0].id) ? "open" : ""
-                  }`}
+                  className={`accordion ${openAccordions.includes(posts[0].id) ? "open" : ""
+                    }`}
                   key={category}
                 >
                   <div
