@@ -30,13 +30,13 @@ root.render(
       <AuthContextProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/data-import" element={<DataImport />} />
           <Route path="/data-export" element={<DataExport />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:userid" element={<Profile />} />
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/category" element={<Category />} />
           <Route path="/post/:postId" element={<Post />} />

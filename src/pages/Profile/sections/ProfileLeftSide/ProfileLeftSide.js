@@ -5,6 +5,7 @@ import { AiFillCaretRight } from 'react-icons/ai';
 import { UserAuth } from '../../../../auth/AuthContextProvider';
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '../../../../firebase';
+import { useParams } from 'react-router-dom';
 
 const ProfileLeftSide = ({ setActiveComponent }) => {
   const { user, handleLogout } = UserAuth()
@@ -12,11 +13,11 @@ const ProfileLeftSide = ({ setActiveComponent }) => {
   const [activeButton, setActiveButton] = useState('posts');
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [profileUsername, setProfileUsername] = useState("");
-
+  const { userid } = useParams()
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userDocRef = doc(db, "users", user?.uid);
+        const userDocRef = doc(db, "users", userid);
         const userDocSnap = await getDoc(userDocRef);
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
@@ -41,7 +42,7 @@ const ProfileLeftSide = ({ setActiveComponent }) => {
     <ProfileLeftSideStyles>
       <ProfileInformationContainer>
         <ProfilePic >
-          <img src={profilePictureUrl} alt="" />
+          <img src={profilePictureUrl} alt="Users profile pic" />
         </ProfilePic>
         <ProfileName>{user?.email && profileUsername}</ProfileName>
       </ProfileInformationContainer>
@@ -52,23 +53,27 @@ const ProfileLeftSide = ({ setActiveComponent }) => {
         >
           Posts <AiFillCaretRight className="icon" />
         </SidebarButton>
-        <SidebarButton
-          className={activeButton === 'settings' ? 'active' : ''}
-          onClick={() => handleButtonClick('settings')}
-        >
-          Settings <CiSettings className="icon" />
-        </SidebarButton>
+        {user?.uid === userid && (
+          <SidebarButton
+            className={activeButton === 'settings' ? 'active' : ''}
+            onClick={() => handleButtonClick('settings')}
+          >
+            Settings <CiSettings className="icon" />
+          </SidebarButton>
+        )}
         <SidebarButton
           className={activeButton === 'component3' ? 'active' : ''}
           onClick={() => handleButtonClick('component3')}
         >
           Component 3 <CiSettings className="icon" />
         </SidebarButton>
-        <SidebarButton
-          onClick={() => handleLogout()}
-        >
-          Logout
-        </SidebarButton>
+        {user?.uid === userid && (
+          <SidebarButton
+            onClick={() => handleLogout()}
+          >
+            Logout
+          </SidebarButton>
+        )}
       </Sidebar>
     </ProfileLeftSideStyles>
   );

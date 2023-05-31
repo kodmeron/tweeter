@@ -193,7 +193,6 @@ const HomeComponent = styled.header`
   .outer {
     grid-column: 2;
     grid-row: 2;
-    background-color:   #f7f7f7;
   }
 
   .mid {

@@ -30,9 +30,9 @@ export const AuthContextProvider = ({ children }) => {
       console.log(error)
     })
   }
-  const createUser = (email, password) => {
+  const createUser = (email, password, setSuccess, setError) => {
     console.log("created user" + email)
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password)
   };
 
   const signIn = (email, password) => {

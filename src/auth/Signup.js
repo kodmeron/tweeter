@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState, useRef } from "react";
 import { UserAuth } from "./AuthContextProvider";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from '../firebase';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { v4 } from "uuid";
+import { Form, Input, Label, FileInput, ShowPasswordButton, Button } from "./styles";
 
 const Signup = () => {
   const { createUser } = UserAuth();
@@ -12,48 +15,79 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const fileInputRef = useRef(null);
+  const navigate = useNavigate()
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const handleSignup = async (event) => {
     event.preventDefault();
     try {
-      const userCredential = await createUser(email, password);
+      const userCredential = await createUser(email, password, setSuccess, setError);
       const user = userCredential.user;
       const uid = user.uid;
 
-      // Convert the profile picture to a base64 string
       let profilePictureUrl = "";
+
       if (profilePicture) {
-        profilePictureUrl = await getBase64(profilePicture);
+        const imageRef = ref(storage, `profilePicture/${v4()}`);
+        uploadBytes(imageRef, profilePicture).then(() => {
+          getDownloadURL(imageRef).then((url) => {
+            profilePictureUrl = url; // Set the profilePictureUrl with the image URL
+            const userDocRef = doc(db, "users", uid);
+            setDoc(userDocRef, {
+              email: email,
+              username: username,
+              profilePicture: profilePictureUrl,
+            }).then(() => {
+              navigate(`/profile/${user.uid}`)
+            });
+          });
+        });
+      } else {
+        const userDocRef = doc(db, "users", uid);
+        setDoc(userDocRef, {
+          email: email,
+          username: username,
+          profilePicture: profilePictureUrl,
+        }).then(() => {
+        });
       }
-
-      // Create a document in Firestore to store additional user data
-      const userDocRef = doc(db, "users", uid);
-      await setDoc(userDocRef, {
-        email: email,
-        username: username,
-        profilePicture: profilePictureUrl,
-      });
-
-      console.log("User created:", user);
     } catch (error) {
-      console.log("Error creating user:", error);
+      if (error.code === "auth/email-already-in-use") {
+        setError("Email already in use")
+      }
+      else if (error.code === "auth/invalid-email") {
+        setError("Invalid email")
+      }
+      else {
+        setError("Something went wrong")
+      }
     }
   };
 
-  // Helper function to convert a File object to base64 string
-  const getBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleFileInputChange = (event) => {
+    setProfilePicture(event.target.files[0]);
+  };
+
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleShowPasswordClick = (event) => {
+    event.preventDefault(); // Prevent form submission
+    toggleShowPassword();
+  };
+
   return (
     <Form onSubmit={handleSignup}>
+      <h1>Create an account for free!</h1>
+      <h4 style={{ color: 'crimson' }}>{success}</h4>
+      <h4 style={{ color: 'crimson' }}>{error}</h4>
       <div>
         <Label htmlFor="email">Email</Label>
         <Input
@@ -81,88 +115,40 @@ const Signup = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <ShowPasswordButton onClick={toggleShowPassword}>
+          <ShowPasswordButton as="button" onClick={handleShowPasswordClick}>
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </ShowPasswordButton>
         </div>
       </div>
       <div>
-        <Label htmlFor="email">Profile Picture</Label>
-        <FileInput
-          type="file"
-          accept="image/*"
-          onChange={(event) => setProfilePicture(event.target.files[0])}
-        />
+        <Label htmlFor="profilepic">Profile Picture</Label>
+        <div style={{ position: 'relative', width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', background: '#222', cursor: 'pointer' }}>
+          <FileInput
+            type="file"
+            accept="image/*"
+            onChange={handleFileInputChange}
+            ref={fileInputRef}
+          />
+          {profilePicture ? (
+            <img
+              src={URL.createObjectURL(profilePicture)}
+              alt="Profile Pic"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          ) : (
+            <div
+              style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              onClick={handleFileInputClick}
+            >
+              <span style={{ color: '#fff', fontSize: '24px' }}>+</span>
+            </div>
+          )}
+        </div>
       </div>
+      <h4>Already have an account? Sign in <Link to="/signin">here</Link></h4>
       <Button type="submit">Sign up</Button>
     </Form>
   );
 };
-
-const Form = styled.form`
-width: 90%;
-margin: 15px auto;
-padding: 1rem;
-display: grid;
-flex-direction: column;
-align-items: center;
-background-color:#ACBCFF;
-border-radius: 25px;
-  div {
-    display:flex;
-    flex-direction: column;
-  }
-
-`;
-
-const Input = styled.input`
-    margin: 0 10px;
-    padding: 1rem 2rem;
-    border-radius: 15px;
-    border:none;
-    font-size: 1.5rem;
-    position: relative;
-    background-color: #E6FFFD;
-`;
-
-const Label = styled.label`
-    font-size: 2rem;
-    margin-left: 5px;
-    font-weight: bold;
-    margin: 15px 10px 0 15px;
-`;
-
-const FileInput = styled.input`
-  margin-bottom: 10px;
-`;
-
-const ShowPasswordButton = styled.button`
-  position: absolute;
-  right: 2rem;
-  top:4px;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  margin: 0 auto;
-  cursor:pointer;
-  border: none;
-  border-radius: 15px;
-  font-weight:bold;
-  font-size: 3rem;
-  background: transparent;
-  `
-const Button = styled.button`
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    width: 15rem;
-    margin: 15px auto;
-    cursor:pointer;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 15px;
-    font-weight:bold;
-    background-color: #AEE2FF;
-`;
 
 export default Signup;

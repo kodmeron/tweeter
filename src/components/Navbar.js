@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { UserAuth } from "../auth/AuthContextProvider";
 import { slide as Menu } from 'react-burger-menu';
 import { CgProfile } from "react-icons/cg";
-import { Signin } from "../auth/Signin";
+import SigninModal from "../auth/SigninModal";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -22,7 +22,12 @@ function Navbar() {
   };
 
   const redirectToProfile = () => {
-    navigate("/profile"); // Replace "/profile" with the desired route for the profile page
+    if (!user) {
+      navigate(`/signin`)
+    }
+    else {
+      navigate(`/profile/${user?.uid}`); // Replace "/profile" with the desired route for the profile page
+    }
   };
 
   useEffect(() => {
@@ -63,7 +68,7 @@ function Navbar() {
                             <button className='btn' onClick={handleLogout}>Logout</button>
                           </div>
                         ) : (
-                          <Signin />
+                          <SigninModal />
                         )}
                       </div>
                     )}

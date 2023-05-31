@@ -77,7 +77,7 @@ body {
   line-height: 1.5 !important;
   /* Add padding behind navbar */
   padding-top: 7rem;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 
   overflow-y: scroll;
 }

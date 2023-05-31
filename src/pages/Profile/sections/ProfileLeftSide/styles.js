@@ -8,9 +8,13 @@ export const ProfileLeftSideStyles = styled.section`
 `;
 export const ProfileInformationContainer = styled.section`
 display: flex;
+flex-direction: column;
 align-items: center;
 gap: 1rem;
 margin: 10px 0;
+@media (min-width: 768px) {
+  flex-direction: row;
+}
 `
 export const ProfilePic = styled.div`
 & > img {
@@ -19,6 +23,7 @@ export const ProfilePic = styled.div`
   height: 100px;
   border-radius: 50%;
   background-color: #222;
+  object-fit:cover;
 }
 `;
 
