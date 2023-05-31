@@ -30,9 +30,9 @@ export const AuthContextProvider = ({ children }) => {
       console.log(error)
     })
   }
-  const createUser = (email, password) => {
+  const createUser = (email, password, setSuccess, setError) => {
     console.log("created user" + email)
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password)
   };
 
   const signIn = (email, password) => {
@@ -58,25 +58,27 @@ export const AuthContextProvider = ({ children }) => {
   const updateCredentials = (newEmail, newPassword, currentPassword, setError, setSuccess) => {
     if (user) {
       if (newPassword.length < 4) {
-        setError('Password must be at least 4 characters long.');
+        setError('newPassword', 'Password must be at least 4 characters long.');
         return;
       }
 
       if (newPassword === user.password) {
-        setError('New password cannot be the same as the current password.');
+        setError('newPassword', 'New password cannot be the same as the current password.');
         return;
       }
 
       const emailRegex = /^\S+@\S+\.\S+$/;
       if (!emailRegex.test(newEmail)) {
-        setError('Invalid email format.');
+        setError('newEmail', 'Invalid email format.');
         return;
       }
 
       if (newEmail === user.email) {
-        setError('New email cannot be the same as the current email.');
+        setError('newEmail', 'New email cannot be the same as the current email.');
         return;
       }
+
+      let successCount = 0; // Counter for successful updates
 
       const credential = EmailAuthProvider.credential(user.email, currentPassword);
 
@@ -84,26 +86,31 @@ export const AuthContextProvider = ({ children }) => {
         .then(() => {
           updateEmail(auth.currentUser, newEmail)
             .then(() => {
-              setSuccess('Email updated successfully.');
+              successCount++; // Increment success count
+              if (successCount === 2) {
+                setSuccess('Email and password updated successfully.');
+              }
             })
             .catch((error) => {
-              setError('Failed to update email: ' + error.message);
+              setError('newEmail', 'Failed to update email: ' + error.message);
             });
 
           updatePassword(auth.currentUser, newPassword)
             .then(() => {
-              setSuccess('Password updated successfully.');
+              successCount++; // Increment success count
+              if (successCount === 2) {
+                setSuccess('Email and password updated successfully.');
+              }
             })
             .catch((error) => {
-              setError('Failed to update password: ' + error.message);
+              setError('newPassword', 'Failed to update password: ' + error.message);
             });
         })
         .catch((error) => {
-          setError('Failed to reauthenticate: ' + error.message);
+          setError('currentPassword', 'Failed to reauthenticate: ' + error.message);
         });
     }
   };
-
 
 
   useEffect(() => {

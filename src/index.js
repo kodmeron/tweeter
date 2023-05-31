@@ -17,7 +17,6 @@ import Profile from "./pages/Profile/Profile"
 //Components
 import Navbar from './components/Navbar';
 import CreatePost from "./components/CreatePost";
-import Category from "./components/Category";
 import Post from "./components/Post";
 import DisplayCategories from './components/DisplayCategories';
 
@@ -36,6 +35,7 @@ root.render(
           <Route path="/data-import" element={<DataImport />} />
           <Route path="/data-export" element={<DataExport />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:userid" element={<Profile />} />
           <Route path="/create-post" element={<CreatePost />} />
           {/* <Route path="/category" element={<Category />} /> */}
           <Route path="/category/:category" element={<DisplayCategories />} />
