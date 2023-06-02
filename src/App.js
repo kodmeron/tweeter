@@ -24,7 +24,6 @@ function Home() {
     return () => unsubscribe();
   }, []);
 
-
   const groupedPosts = groupBy(posts, "category");
   return (
     <>
@@ -105,6 +104,7 @@ const HomeComponent = styled.header`
     justify-content: space-between;
     padding: 5px;
     cursor: pointer;
+    
   }
 
   a {
@@ -116,6 +116,7 @@ const HomeComponent = styled.header`
   .accordion-content {
     background-color: #e6fffd;
     margin-left: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .content {

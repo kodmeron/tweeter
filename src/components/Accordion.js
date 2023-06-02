@@ -23,8 +23,12 @@ const Accordion = ({ category, posts }) => {
         <div className="accordion-content">
           {posts.slice(0, 5).map((post) => (
             <Link className="content" to={`/post/${post.id}`} key={post.id}>
-              <div className="post-title">{post.title}</div>
-              <div className="post-author">Post: {post.postName}</div>
+              <div className="post-title">{post.postName}</div>
+              <div className="post-author">
+                {post.postText.length > 100
+                  ? post.postText.slice(0, 60) + '...'
+                  : post.postText}
+              </div>
               <br />
               <div className="post-separator" />
             </Link>
