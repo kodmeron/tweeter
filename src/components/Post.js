@@ -67,7 +67,7 @@ const Post = () => {
           <div className="comments">
             <div className="comments-inner" key={comment.id}>
               <div className="post-separator" />
-              <p>{comment.authorEmail}</p>
+              <p className="profile">{comment.authorEmail}</p>
               <p className="post-text">
                 {comment.commentText}
               </p>
