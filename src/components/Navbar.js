@@ -18,7 +18,7 @@ function Navbar() {
   const closeDropdown = () => {
     setTimeout(() => {
       setIsDropdownOpen(false);
-    }, 200); // Adjust the delay time (in milliseconds) as needed
+    }, 2000); // Adjust the delay time (in milliseconds) as needed
   };
 
   const redirectToProfile = () => {
@@ -52,12 +52,13 @@ function Navbar() {
               />
 
               <div className='menu-outer'>
-                <div className="dropdown-menu">
+                <div className="dropdown-menu"
+                  onMouseEnter={openDropdown}
+                  onMouseLeave={closeDropdown}
+                  onClick={redirectToProfile}>
                   <div
                     className="dropdown-header"
-                    onMouseEnter={openDropdown}
-                    onMouseLeave={closeDropdown}
-                    onClick={redirectToProfile}
+
                   >
                     <CgProfile className="profile-icon" />
                     {isDropdownOpen && (
@@ -75,16 +76,17 @@ function Navbar() {
                   </div>
                 </div>
                 <Menu right className="menu">
-                  <Link className='navText' to="/bird-identification">Bird Identification</Link>
-                  <Link className='navText' to="/tips">Birdwatching Tips</Link>
-                  <Link className='navText' to="/photography">Photography</Link>
-                  <Link className='navText' to="/locations">Birdwatching Locations</Link>
-                  <Link className='navText' to="/conservation-and-preservation">Sustainability</Link>
-                  <Link className='navText' to="/behavior-and-biology">Behavior and Biology</Link>
-                  <Link className='navText' to="/binoculars-and-gear">Binoculars & Gear</Link>
-                  <Link className='navText' to="/events-and-meetups">Events & Meetups</Link>
-                  <Link className='navText' to="/stories-and-experiences">Stories & Experiences</Link>
-                  <Link className='navText' to="/resources">Birdwatching Resources</Link>
+                  <Link className='navText' to="/category/Birdwatching">Birdwatching</Link>
+                  <Link className='navText' to="/category/Bird Identification">Bird Identification</Link>
+                  <Link className='navText' to="/category/Birdwatching Tips">Birdwatching Tips</Link>
+                  <Link className='navText' to="/category/Photography">Photography</Link>
+                  <Link className='navText' to="/category/Locations">Birdwatching Locations</Link>
+                  <Link className='navText' to="/category/Conservation & Preservation">Sustainability</Link>
+                  <Link className='navText' to="/category/Behaviour & Biology">Behavior and Biology</Link>
+                  <Link className='navText' to="/category/Binoculars & Gear">Binoculars & Gear</Link>
+                  <Link className='navText' to="/category/Events & Meetups">Events & Meetups</Link>
+                  <Link className='navText' to="/category/Stories & Experiences">Stories & Experiences</Link>
+                  <Link className='navText' to="/category/Resources">Resources</Link>
                 </Menu>
               </div>
             </>
