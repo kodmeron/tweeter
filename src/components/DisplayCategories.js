@@ -38,27 +38,25 @@ const DisplayCategories = () => {
         <div className='section-bar'>
           {categoryHit && <h1 className="category">{categoryHit}</h1>}
         </div>
-        <div className="mid">
-          <div className="inner">
-            <div className="accordion-content">
-              {posts.slice(0, 5).map((post) => (
-                <>
-                  <Link className="content" to={`/post/${post.id}`} key={post.id}>
-                    <AiOutlineFile className='file-logo' />
-                    <div className='text-holder'>
-                      <div className="post-name">{post.postName}</div>
-                      <div className="post-text">
-                        {post.postText.length > 100
-                          ? post.postText.slice(0, 60) + '...'
-                          : post.postText}
-                      </div>
+        <div className="inner">
+          <div className="accordion-content">
+            {posts.slice(0, 5).map((post) => (
+              <>
+                <Link className="content" to={`/post/${post.id}`} key={post.id}>
+                  <AiOutlineFile className='file-logo' />
+                  <div className='text-holder'>
+                    <div className="post-name">{post.postName}</div>
+                    <div className="post-text">
+                      {post.postText.length > 100
+                        ? post.postText.slice(0, 60) + '...'
+                        : post.postText}
                     </div>
-                    <br />
-                  </Link>
-                  <div className="post-separator" />
-                </>
-              ))}
-            </div>
+                  </div>
+                  <br />
+                </Link>
+                <div className="post-separator" />
+              </>
+            ))}
           </div>
         </div>
       </div>
@@ -104,7 +102,7 @@ const CategoriesComponent = styled.header`
   }
 
   .accordion-content {
-    background-color: #e6fffd;
+   
     margin-left: 2;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
