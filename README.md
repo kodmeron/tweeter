@@ -26,7 +26,7 @@ Use the `README.md` to get started.
 ### Built With
 
 - [![React][react.js]][react-url]
-- [![Firebase]][firebase-url]
+- [![Firebase]
 
 
 <!-- GETTING STARTED -->
