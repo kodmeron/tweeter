@@ -85,7 +85,74 @@ For example: </br>
 Herosection:added become member form
 
 
+<!-- File Structure -->
+## File Structure
+The structure of Tweeter is simple </br>
+in **src** we have a few folders, </br>
+the most important are the following: </br>
+📂components </br>
+📂pages </br>
 
+#### Components
+
+The components folder contains exactly what its called, anything from reusable components <br/>
+like **Accordion** to components like **Navbar** and can be used all over the project.
+
+
+#### Pages
+
+The pages folder contains a folder for each page represented on the forum, <br/>
+including pages such as **Profile**, **Posts** & **Categories**
+
+
+
+Here you can see the entire file structure <br/>
+
+📦src </br>
+ ┣ 📂auth </br>
+ ┃ ┣ 📜AuthContextProvider.js </br>
+ ┃ ┣ 📜Signin.js </br>
+ ┃ ┣ 📜SigninModal.js </br>
+ ┃ ┣ 📜Signup.js </br>
+ ┃ ┗ 📜styles.js </br>
+ ┣ 📂components </br>
+ ┃ ┣ 📂banner </br>
+ ┃ ┃ ┗ 📜tweeter-banner.png </br>
+ ┃ ┣ 📜Accordion.js </br>
+ ┃ ┣ 📜Category.js </br>
+ ┃ ┣ 📜CommentPost.js </br>
+ ┃ ┗ 📜Navbar.js </br>
+ ┣ 📂firestore </br>
+ ┃ ┣ 📜DataExport.js </br>
+ ┃ ┣ 📜DataImport.js </br>
+ ┃ ┗ 📜FirestoreLogic.js </br>
+ ┣ 📂images </br>
+ ┃ ┗ 📜LandingPage_picture.png </br>
+ ┣ 📂pages </br>
+ ┃ ┣ 📂Category </br>
+ ┃ ┃ ┗ 📜DisplayCategories.js </br>
+ ┃ ┣ 📂CreatePost </br>
+ ┃ ┃ ┣ 📜CreatePost.js </br>
+ ┃ ┃ ┗ 📜styles.js </br>
+ ┃ ┣ 📂Posts </br>
+ ┃ ┃ ┗ 📜Post.js </br>
+ ┃ ┗ 📂Profile </br>
+ ┃ ┃ ┣ 📂sections </br>
+ ┃ ┃ ┃ ┣ 📂Posts </br>
+ ┃ ┃ ┃ ┃ ┣ 📜Posts.js </br>
+ ┃ ┃ ┃ ┃ ┗ 📜styles.js </br>
+ ┃ ┃ ┃ ┣ 📂ProfileLeftSide </br>
+ ┃ ┃ ┃ ┃ ┣ 📜ProfileLeftSide.js </br>
+ ┃ ┃ ┃ ┃ ┗ 📜styles.js </br>
+ ┃ ┃ ┃ ┗ 📂Settings </br>
+ ┃ ┃ ┃ ┃ ┣ 📜Settings.js </br>
+ ┃ ┃ ┃ ┃ ┗ 📜styles.js </br>
+ ┃ ┃ ┣ 📜Profile.js </br>
+ ┃ ┃ ┗ 📜styles.js </br>
+ ┣ 📜App.js </br>
+ ┣ 📜firebase.js </br>
+ ┣ 📜index.css </br>
+ ┗ 📜index.js </br>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
