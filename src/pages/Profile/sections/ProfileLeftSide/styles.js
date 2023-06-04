@@ -5,6 +5,9 @@ export const ProfileLeftSideStyles = styled.section`
   flex-direction: column;
   background-color: #B799FF;
   padding: 2rem;
+  @media(min-width: 768px) {
+    min-width: 450px;
+  }
 `;
 export const ProfileInformationContainer = styled.section`
 display: flex;
@@ -36,6 +39,7 @@ export const Sidebar = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  
 `;
 
 export const SidebarButton = styled.button`

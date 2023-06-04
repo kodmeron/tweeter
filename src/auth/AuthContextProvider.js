@@ -9,7 +9,8 @@ import {
   updatePassword,
   updateEmail,
   reauthenticateWithCredential,
-  EmailAuthProvider
+  EmailAuthProvider,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
@@ -63,18 +64,18 @@ export const AuthContextProvider = ({ children }) => {
       }
 
       if (newPassword === user.password) {
-        setError('newPassword', 'New password cannot be the same as the current password.');
+        setError('New password cannot be the same as the current password.');
         return;
       }
 
       const emailRegex = /^\S+@\S+\.\S+$/;
       if (!emailRegex.test(newEmail)) {
-        setError('newEmail', 'Invalid email format.');
+        setError("Something went wrong");
         return;
       }
 
       if (newEmail === user.email) {
-        setError('newEmail', 'New email cannot be the same as the current email.');
+        setError("Something went wrong");
         return;
       }
 
@@ -92,7 +93,7 @@ export const AuthContextProvider = ({ children }) => {
               }
             })
             .catch((error) => {
-              setError('newEmail', 'Failed to update email: ' + error.message);
+              setError("Something went wrong");
             });
 
           updatePassword(auth.currentUser, newPassword)
@@ -103,15 +104,26 @@ export const AuthContextProvider = ({ children }) => {
               }
             })
             .catch((error) => {
-              setError('newPassword', 'Failed to update password: ' + error.message);
+              setError("Something went wrong");
             });
         })
         .catch((error) => {
-          setError('currentPassword', 'Failed to reauthenticate: ' + error.message);
+          setError("Something went wrong");
         });
     }
   };
 
+  const resetPassword = (email, setSuccess, setError) => {
+    if (email) {
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          setSuccess('Password reset email sent successfully. Please check your email.');
+        })
+        .catch((error) => {
+          setError('Failed to send password reset email. Please try again.');
+        });
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -123,7 +135,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ createUser, user, signIn, signInWithGoogle, handleLogout, updateCredentials }}>
+    <UserContext.Provider value={{ createUser, user, signIn, signInWithGoogle, handleLogout, updateCredentials, resetPassword }}>
       {children}
     </UserContext.Provider>
   );

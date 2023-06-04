@@ -14,6 +14,7 @@ const CommentPost = ({ postId, fetchComments }) => {
     setCommentText(e.target.value);
   };
 
+
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
 

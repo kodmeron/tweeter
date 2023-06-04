@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, query, onSnapshot, where } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../../firebase';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { AiOutlineFile } from "react-icons/ai";
@@ -40,7 +40,7 @@ const DisplayCategories = () => {
         </div>
         <div className="inner">
           <div className="accordion-content">
-            {posts.slice(0, 5).map((post) => (
+            {posts.map((post) => (
               <>
                 <Link className="content" to={`/post/${post.id}`} key={post.id}>
                   <AiOutlineFile className='file-logo' />
@@ -78,7 +78,6 @@ const CategoriesComponent = styled.header`
 
 
   .inner {
-    marin: 30px;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;

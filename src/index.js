@@ -16,9 +16,9 @@ import Profile from "./pages/Profile/Profile"
 
 //Components
 import Navbar from './components/Navbar';
-import CreatePost from "./components/CreatePost";
-import Post from "./components/Post";
-import DisplayCategories from './components/DisplayCategories';
+import CreatePost from "./pages/CreatePost/CreatePost";
+import Post from "./pages/Posts/Post";
+import DisplayCategories from './pages/Category/DisplayCategories';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

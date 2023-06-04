@@ -4,7 +4,7 @@ import { UserAuth } from '../../../../auth/AuthContextProvider';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Settings = () => {
-  const { updateCredentials } = UserAuth();
+  const { updateCredentials, resetPassword } = UserAuth();
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -12,6 +12,7 @@ const Settings = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); // State for showing/hiding password
   const [showCurrentPassword, setShowCurrentPassword] = useState(false); // State for showing/hiding password
+  const [showResetPassword, setShowResetPassword] = useState(false); // State for showing/hiding reset password input
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -28,8 +29,22 @@ const Settings = () => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
   const toggleShowCurrentPassword = () => {
     setShowCurrentPassword(!showCurrentPassword);
+  };
+
+  const handleForgotPassword = () => {
+    setShowResetPassword(true);
+  };
+
+  const handleResetPassword = () => {
+    if (!email) {
+      setError('Please enter your email.');
+      return;
+    }
+    resetPassword(email, setSuccess, setError);
+    setEmail('');
   };
 
   return (
@@ -80,6 +95,25 @@ const Settings = () => {
           </div>
         </SettingsChangeUserInfo>
         <button className='save-button' onClick={handleFormSubmit}>Save</button>
+        {!showResetPassword && (
+          <button className='forgot-password-button' onClick={handleForgotPassword}>
+            Forgot your password? Press here
+          </button>
+        )}
+        {showResetPassword && (
+          <div>
+            <label htmlFor="reset-email">Email:</label>
+            <input
+              type="text"
+              id="reset-email"
+              name="resetEmail"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button className='save-button' onClick={handleResetPassword}>Reset Password</button>
+          </div>
+        )}
       </SettingsForm>
     </ProfileSettingsStyles>
   );

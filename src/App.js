@@ -7,11 +7,12 @@ import Accordion from "./components/Accordion";
 import TweeterBanner from "./components/banner/tweeter-banner.png"
 
 function Home() {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(
-      query(collection(db, "posts"),),
+    const unsubscribePosts = onSnapshot(
+      query(collection(db, "posts")),
       (snapshot) => {
         const postsData = [];
         snapshot.forEach((doc) => {
@@ -21,10 +22,30 @@ function Home() {
       }
     );
 
-    return () => unsubscribe();
+    const unsubscribeUsers = onSnapshot(
+      query(collection(db, "users")),
+      (snapshot) => {
+        const usersData = {};
+        snapshot.forEach((doc) => {
+          const user = { id: doc.id, ...doc.data() };
+          usersData[user.email] = user.id;
+        });
+        setUsers(usersData);
+      }
+    );
+
+    return () => {
+      unsubscribePosts();
+      unsubscribeUsers();
+    };
   }, []);
 
   const groupedPosts = groupBy(posts, "category");
+
+  const findUserId = (email) => {
+    return users[email];
+  };
+
   return (
     <>
       <OuterComponent>
@@ -45,6 +66,7 @@ function Home() {
                   key={category}
                   category={category}
                   posts={posts}
+                  findUserId={findUserId}
                 />
               ))}
             </div>
@@ -72,29 +94,30 @@ const OuterComponent = styled.header`
 `;
 
 const HomeComponent = styled.header`
-  display: grid;
-  grid-template-columns: 20px auto 20px;
-  grid-template-rows: 2rem auto 2rem;
-  width: 100vw;
+
 
   .outer {
     grid-column: 2;
     grid-row: 2;
     background-color: #f7f7f7;
+    border-radius: 15px;
   }
 
   .mid {
-    margin: auto;
-    padding: 20px;
+    @media(min-width:768px){
+      margin: auto;
+      padding: 20px;
+    }
+
   }
 
   .inner {
-    marin: 30px;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
     grid-gap: 1rem;
     width: 100%;
+
   }
 
   .section-bar {
@@ -104,8 +127,16 @@ const HomeComponent = styled.header`
     justify-content: space-between;
     padding: 5px;
     cursor: pointer;
-    
+    @media(min-width:768px) {
+    border-radius: 15px 15px 0 0;
   }
+  }
+  .open-bar {
+    @media(min-width:768px) {
+    border-radius: 15px;
+  }
+  }
+
 
   a {
     font-size: 2rem;
@@ -117,12 +148,16 @@ const HomeComponent = styled.header`
     background-color: #e6fffd;
     margin-left: 2;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    @media(min-width:768px) {
+    border-radius: 0 0 15px 15px;
+  }
+    
   }
 
   .content {
     color: black;
     font-size: 1.5rem;
-    // background-color: #acbcff;
+    display: flex;
   }
 
   .accordion-icon {
@@ -144,9 +179,11 @@ const HomeComponent = styled.header`
   }
 
   .post-separator {
-    border-bottom: 1px solid #acbcff;
-    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(183,153,255,0.3);
+    height: 1px;
+    width: 100%;
   }
+
 `;
 
 export default Home;

@@ -10,7 +10,8 @@ background-color: #ACBCFF;
 
   h1 {
     font-size: 3rem;
-    text-align: center;
+    color: white;
+    margin-left: 5px;
   }
 `
 export const SettingsForm = styled.section`
@@ -42,7 +43,6 @@ align-items: center;
     display: flex;
     text-align: center;
     justify-content: center;
-    width: 15rem;
     margin: 15px auto;
     cursor:pointer;
     border: none;
@@ -50,6 +50,13 @@ align-items: center;
     border-radius: 15px;
     font-weight:bold;
     background-color: #AEE2FF;
+  }
+  .forgot-password-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
   }
 `
 
