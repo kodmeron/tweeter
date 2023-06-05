@@ -10,9 +10,9 @@ const Settings = () => {
   const [success, setSuccess] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // State for showing/hiding password
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false); // State for showing/hiding password
-  const [showResetPassword, setShowResetPassword] = useState(false); // State for showing/hiding reset password input
+  const [showPassword, setShowPassword] = useState(false);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();

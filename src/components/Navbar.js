@@ -18,7 +18,7 @@ function Navbar() {
   const closeDropdown = () => {
     setTimeout(() => {
       setIsDropdownOpen(false);
-    }, 2000); // Adjust the delay time (in milliseconds) as needed
+    }, 2000);
   };
 
   const redirectToProfile = () => {
@@ -26,13 +26,13 @@ function Navbar() {
       navigate(`/signin`)
     }
     else {
-      navigate(`/profile/${user?.uid}`); // Replace "/profile" with the desired route for the profile page
+      navigate(`/profile/${user?.uid}`);
     }
   };
 
   useEffect(() => {
     return () => {
-      // Clear the timeout when the component unmounts
+
       clearTimeout(closeDropdown);
     };
   }, []);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { UserAuth } from "./AuthContextProvider";
 import { auth } from '../firebase'
 import { Form, Input, Label, ShowPasswordButton, Button } from "./styles";
@@ -10,13 +10,11 @@ export const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  //eslint-disable-next-line
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   console.log(auth)
-  // }, [])
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);

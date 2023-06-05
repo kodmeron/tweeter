@@ -11,7 +11,7 @@ const Posts = ({ profileEmail }) => {
     const unsubscribe = onSnapshot(
       query(
         collection(db, "posts"),
-        where("authorEmail", "==", profileEmail) // Filter posts by user email
+        where("authorEmail", "==", profileEmail)
       ),
       (snapshot) => {
         const postsData = [];

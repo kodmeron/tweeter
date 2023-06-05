@@ -40,9 +40,7 @@ export const AuthContextProvider = ({ children }) => {
     console.log("signed in user" + email)
     return signInWithEmailAndPassword(auth, email, password)
   }
-  // const signInWithGoogle = () => {
-  //   return signInWithPopup(auth, provider)
-  // }
+
 
   const logout = () => {
     return signOut(auth)
@@ -79,7 +77,7 @@ export const AuthContextProvider = ({ children }) => {
         return;
       }
 
-      let successCount = 0; // Counter for successful updates
+      let successCount = 0;
 
       const credential = EmailAuthProvider.credential(user.email, currentPassword);
 
@@ -87,7 +85,7 @@ export const AuthContextProvider = ({ children }) => {
         .then(() => {
           updateEmail(auth.currentUser, newEmail)
             .then(() => {
-              successCount++; // Increment success count
+              successCount++;
               if (successCount === 2) {
                 setSuccess('Email and password updated successfully.');
               }
@@ -98,7 +96,7 @@ export const AuthContextProvider = ({ children }) => {
 
           updatePassword(auth.currentUser, newPassword)
             .then(() => {
-              successCount++; // Increment success count
+              successCount++;
               if (successCount === 2) {
                 setSuccess('Email and password updated successfully.');
               }

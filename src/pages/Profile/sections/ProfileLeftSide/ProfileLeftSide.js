@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ProfileLeftSideStyles, ProfileInformationContainer, ProfilePic, ProfileName, Sidebar, SidebarButton } from './styles';
 import { CiSettings } from 'react-icons/ci';
 import { AiFillCaretRight } from 'react-icons/ai';
@@ -19,8 +19,6 @@ const ProfileLeftSide = ({ setActiveComponent, profilePictureUrl, profileUsernam
     setActiveButton(component);
   };
 
-  // useEffect(() => console.log(user.uid), [user])
-  // useEffect(() => console.log(userid), [user])
 
 
   return (

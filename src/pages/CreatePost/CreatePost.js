@@ -3,9 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { UserAuth } from "../../auth/AuthContextProvider";
-import { FormGroup, Heading, Form, Wrapper, Label, Button, Select, Input, TextArea, SuccessMessage, ErrorMessage } from './styles'
-
-
+import {
+  FormGroup,
+  Heading,
+  Form,
+  Wrapper,
+  Label,
+  Button,
+  Select,
+  Input,
+  TextArea,
+  SuccessMessage,
+  ErrorMessage,
+} from "./styles";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -15,6 +25,7 @@ const CreatePost = () => {
   const [postText, setPostText] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
   const handlePostNameChange = (e) => {
     setPostName(e.target.value);
   };
@@ -29,19 +40,18 @@ const CreatePost = () => {
 
   if (!user) {
     navigate("/signin");
-    return null; // Return null instead of an empty div
+    return null;
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Fetch the current user's profile data from Firestore
+
       const userDocRef = doc(db, "users", user.uid);
       const userDoc = await getDoc(userDocRef);
       const userData = userDoc.data();
       console.log(userData);
-      // Create the post with the user's profile information
       await addDoc(collection(db, "posts"), {
         category: category,
         authorEmail: user.email,
@@ -90,11 +100,11 @@ const CreatePost = () => {
         </FormGroup>
         <FormGroup>
           <Label htmlFor="post-name">Post Name:</Label>
-          <Input id="post-name" type="text" value={postName} onChange={handlePostNameChange} />
+          <Input id="post-name" type="text" value={postName} onChange={handlePostNameChange} required />
         </FormGroup>
         <FormGroup>
           <Label htmlFor="post-text">Post Text:</Label>
-          <TextArea id="post-text" value={postText} onChange={handlePostTextChange} />
+          <TextArea id="post-text" value={postText} onChange={handlePostTextChange} required />
         </FormGroup>
         <Button type="submit">Submit</Button>
       </Form>
