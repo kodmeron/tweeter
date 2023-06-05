@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { UserAuth } from "../../auth/AuthContextProvider";
-import { FormGroup, Heading, Form, Wrapper, Label, Button, Select, Input, TextArea } from './styles'
+import { FormGroup, Heading, Form, Wrapper, Label, Button, Select, Input, TextArea, SuccessMessage, ErrorMessage } from './styles'
 
 
 
@@ -13,7 +13,8 @@ const CreatePost = () => {
   const [category, setCategory] = useState("Bird Identification");
   const [postName, setPostName] = useState("");
   const [postText, setPostText] = useState("");
-
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const handlePostNameChange = (e) => {
     setPostName(e.target.value);
   };
@@ -46,15 +47,16 @@ const CreatePost = () => {
         authorEmail: user.email,
         postName: postName,
         postText: postText,
-        postAuthorPicture: userData.profilePicture, // Add the profile picture
-        postAuthorName: userData.username, // Add the display name
+        postAuthorPicture: userData.profilePicture,
+        postAuthorName: userData.username,
       });
-
+      setSuccessMessage("Post created successfully!");
       setCategory("Bird Identification");
       setPostName("");
       setPostText("");
     } catch (error) {
       console.log(error);
+      setErrorMessage("Error creating post. Please try again.");
     }
   };
 
@@ -62,6 +64,8 @@ const CreatePost = () => {
     <Wrapper>
       <Heading>Create a New Post</Heading>
       <Form onSubmit={handleSubmit}>
+        {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         <FormGroup>
           <Label htmlFor="category">Category:</Label>
           <Select value={category} id="category" onChange={handleCategoryChange}>

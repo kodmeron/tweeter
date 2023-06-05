@@ -14,7 +14,12 @@ export const Heading = styled.h1`
   margin-bottom: 20px;
   font-size: 3rem;
 `;
-
+export const SuccessMessage = styled.h1`
+  text-align: center;
+`
+export const ErrorMessage = styled.h1`
+  text-align: center;
+`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
