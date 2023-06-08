@@ -30,6 +30,18 @@ border-radius: 25px;
   }
 
 `;
+export const CircleContainer = styled.div`
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #222;
+  cursor: pointer;
+  & > img {
+      object-fit: cover;
+  }
+`;
 
 export const Input = styled.input`
     margin: 0 10px;
@@ -50,10 +62,8 @@ export const Label = styled.label`
 `;
 
 export const FileInput = styled.input`
-  margin-bottom: 10px;
-  opacity: 0;
-  height:150px;
-  width:150px;
+  display: none;
+  object-fit: cover;
 
 `;
 

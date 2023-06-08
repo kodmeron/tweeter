@@ -57,14 +57,13 @@ const Post = () => {
         <div className="inner">
           <div className="profile">
             <img src={post.postAuthorPicture} alt="" style={{ height: "100px", width: "100px", borderRadius: '50%', objectFit: 'cover' }} />
-            <h1>{post.postAuthorName}</h1>
+            <h2>{post.postAuthorName}</h2>
           </div>
-          <div className="separation-line"></div>
           <p className="post-text">
             {post.postText}
           </p>
         </div>
-        <h1>Comments</h1>
+        <h1 style={{ margin: '10px 0' }}>Comments</h1>
         {reversedComments.map((comment) => (
           <div className="comments" key={comment.id}>
             <div className="post-separator" />
@@ -104,15 +103,18 @@ export const PostComponent = styled.header`
     display: flex;
     gap: 1rem;
     padding: 1rem;
+    border-bottom: 1px solid rgba(183,153,255,0.5);
   }
 
   .profile {
     font-size: 1.5rem;
     font-weight: 600;
+    padding: 0.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    border-right: 1px solid rgba(183,153,255,0.5);
   }
   .separation-line {
     width: 3px;

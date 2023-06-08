@@ -6,7 +6,7 @@ import { db, storage } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { v4 } from "uuid";
-import { Form, Input, Label, FileInput, ShowPasswordButton, Button } from "./styles";
+import { Form, Input, Label, FileInput, ShowPasswordButton, Button, CircleContainer } from "./styles";
 
 const Signup = () => {
   const { createUser } = UserAuth();
@@ -91,26 +91,33 @@ const Signup = () => {
       <div style={{ alignItems: 'center' }}>
         <Label htmlFor="profilepic">Upload Picture</Label>
         <div style={{ position: 'relative', width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', background: '#222', cursor: 'pointer' }}>
-          <FileInput
-            type="file"
-            accept="image/*"
-            onChange={handleFileInputChange}
-            ref={fileInputRef}
-          />
-          {profilePicture ? (
-            <img
-              src={URL.createObjectURL(profilePicture)}
-              alt="Profile Pic"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          <CircleContainer onClick={handleFileInputClick}>
+            <FileInput
+              type="file"
+              accept="image/*"
+              onChange={handleFileInputChange}
+              ref={fileInputRef}
             />
-          ) : (
-            <div
-              style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              onClick={handleFileInputClick}
-            >
-              <span style={{ color: '#fff', fontSize: '24px' }}>+</span>
-            </div>
-          )}
+            {profilePicture ? (
+              <img
+                src={URL.createObjectURL(profilePicture)}
+                alt="Profile Pic"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span style={{ color: "#fff", fontSize: "24px" }}>+</span>
+              </div>
+            )}
+          </CircleContainer>
         </div>
       </div>
       <div>
